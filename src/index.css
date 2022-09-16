@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: content-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    font-family: Poppins, sans-serif;
+}
+
+
+#hero-section h1 {
+    line-height: 90px;
+}
+
+#heroImage {
+    height: 100%;
+}
+
+.nav-links li {
+    margin: 0 16px;
+    transition: all ease-in;
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+.form-element label {
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 0.6;
+    margin-bottom: 4px;
+}
+.form-element input {
+    outline: none;
+    padding: 10px 16px;
+    border: 1px solid #e4e4e4;
+    border-radius: 8px;
+}
+
+.fa-google {
+    background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links > li > a {
+    opacity: 0.9;
+}
+.nav-links > li > a:hover {
+    opacity: 1;
+    font-weight: bolder;
+}
