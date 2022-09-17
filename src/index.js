@@ -6,6 +6,7 @@ import {
     createBrowserRouter,
     RouterProvider
 } from "react-router-dom";
+import Dashboard from "./views/Dashboard";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,9 @@ const router = createBrowserRouter([
     }, {
         path: "/forgot-password",
         element: <App page={3}/>
+    }, {
+        path: "/dash",
+        element: <Dashboard/>
     }
 ]);
 

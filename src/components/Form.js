@@ -1,8 +1,45 @@
 import Button from "./Button";
+import {useState} from "react";
+import {Authentication} from "../api/authentication";
+import {notify} from "./notifier";
 
-export default function Form({page}) {
+
+export default function Form({page, setPage}) {
+    const [formData, setFormData] = useState({});
+    const handleInput = (e) => {
+        let prevState = formData;
+        prevState[e.target.name] = e.target.value;
+        setFormData(prevState);
+        console.log(formData);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        for(let b of document.getElementById("hero-form").getElementsByTagName("button")) {b.disabled = true;}
+        Authentication(page, {
+                name: formData.name || e.target.name,
+                email: formData.email || e.target.email,
+                password: formData.password || e.target.password
+            }
+        ).then(res => {
+            console.log("res", res);
+            if(res.status === 200) {
+                window.location.href = '/dash';
+            }
+        }).catch((e) => {
+            switch (e.response.status) {
+                case 409: notify("Email already registered!", "failed");break;
+                case 404: notify("Users doesn't exist!", "failed");break;
+                case 401: notify("Invalid credentials", "failed");break;
+                default: notify(e, "failed");break;
+            }
+        });
+        for(let b of document.getElementById("hero-form").getElementsByTagName("button")) {b.disabled = false;}
+    }
+
+
     return (
-        <form className={"flex-1 p-8 rounded flex-col"}>
+        <form id={"hero-form"} className={"flex-1 p-8 rounded flex-col"} onSubmit={handleSubmit}>
             <div className={"flex items-center"}>
                 <span onClick={() => window.history.back()} className={"fas fa-arrow-left mr-2 cursor-pointer"}/>
                 <span className={"font-bold text-lg text-gray-500 block"}>
@@ -26,16 +63,17 @@ export default function Form({page}) {
             <div className={"max-w-[500px]"}>
                 {page === 1 && <div className={"form-element"}>
                     <label>Name</label>
-                    <input type={"text"} required={true} name={'name'} placeholder={"John Doe"}/>
+                    <input type={"text"} required={true} name={'name'} placeholder={"John Doe"} defaultValue={formData.name} onLoadedData={handleInput} onInput={handleInput}/>
                 </div>}
                 <div className={"form-element"}>
                     <label>Email</label>
-                    <input type={"email"} required={true} name={'email'} placeholder={"johndoe@ex.org"}/>
+                    <input type={"email"} required={true} name={'email'} placeholder={"johndoe@ex.org"} defaultValue={formData.email} onLoadedData={handleInput} onInput={handleInput}/>
                 </div>
                 {page !== 3 && <div className={"form-element"}>
                     <label>Password</label>
                     <input type={"password"} required={true} name={'password'}
-                           placeholder={"Enter password"}/>
+                           placeholder={"Enter password"} onInput={handleInput}
+                    />
                 </div>}
 
                 {page === 1 && <p className={"text-sm text-gray-600 my-2"}>
@@ -45,7 +83,7 @@ export default function Form({page}) {
                 {page === 2 && <div className={"flex justify-end"}>
                     <a href={"/forgot-password"} className={"text-sm my-1"}>Forgot password</a>
                 </div>}
-                <Button fill={'black'} border={2} classList={'max-w-[452px] py-3 mt-4 w-full'}>
+                <Button type={"submit"} fill={'black'} border={2} classList={'max-w-[452px] py-3 mt-4 w-full'}>
                     {page === 1 && "Sign up"}
                     {page === 2 && "Log in"}
                     {page === 3 && "Reset Password"}
