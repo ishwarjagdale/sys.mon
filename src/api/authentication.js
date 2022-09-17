@@ -21,7 +21,7 @@ async function Authentication(index, formData) {
         default:
             break;
     }
-    return axios.post(API + "/auth" + url, {
+    return axios.post(API + "auth" + url, {
         name: formData.name,
         email: formData.email,
         password: formData.password
@@ -29,7 +29,7 @@ async function Authentication(index, formData) {
 }
 
 async function Logout() {
-    return await axios.get(API + "/auth/logout")
+    return await axios.get(API + "auth/logout")
 }
 
 export {Authentication, Logout};
