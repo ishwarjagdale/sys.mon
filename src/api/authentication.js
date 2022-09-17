@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-const API = process.env.API_URL;
+const API = process.env.REACT_APP_API_URL;
 
 async function Authentication(index, formData) {
     let url = "";
