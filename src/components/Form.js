@@ -1,10 +1,9 @@
 import Button from "./Button";
 import {useState} from "react";
 import {Authentication} from "../api/authentication";
-import {notify} from "./notifier";
 
 
-export default function Form({page, setPage}) {
+export default function Form({page}) {
     const [formData, setFormData] = useState({});
     const handleInput = (e) => {
         let prevState = formData;
@@ -16,6 +15,7 @@ export default function Form({page, setPage}) {
     const handleSubmit = (e) => {
         e.preventDefault();
         for(let b of document.getElementById("hero-form").getElementsByTagName("button")) {b.disabled = true;}
+        console.log("HERE");
         Authentication(page, {
                 name: formData.name || e.target.name,
                 email: formData.email || e.target.email,
@@ -25,13 +25,6 @@ export default function Form({page, setPage}) {
             console.log("res", res);
             if(res.status === 200) {
                 window.location.href = '/dash';
-            }
-        }).catch((e) => {
-            switch (e.response.status) {
-                case 409: notify("Email already registered!", "failed");break;
-                case 404: notify("Users doesn't exist!", "failed");break;
-                case 401: notify("Invalid credentials", "failed");break;
-                default: notify(e, "failed");break;
             }
         });
         for(let b of document.getElementById("hero-form").getElementsByTagName("button")) {b.disabled = false;}

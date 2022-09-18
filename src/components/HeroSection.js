@@ -1,4 +1,4 @@
-import heroImage from "../img/8eccea77964ec8a55d70327f6048406e.png";
+import heroImage from "../img/8eccea77964ec8a55d70327f6048406e.webp";
 import Button from "./Button";
 import Form from "./Form";
 

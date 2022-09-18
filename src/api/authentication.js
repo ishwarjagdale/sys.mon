@@ -1,4 +1,5 @@
 import axios from "axios";
+import {notify} from "../components/notifier";
 
 axios.defaults.withCredentials = true;
 const API = process.env.REACT_APP_API_URL;
@@ -21,10 +22,18 @@ async function Authentication(index, formData) {
         default:
             break;
     }
+    console.log(API + "auth" + url);
     return axios.post(API + "auth" + url, {
         name: formData.name,
         email: formData.email,
         password: formData.password
+    }).catch((err) => {
+        switch (err.response.status) {
+            case 409: notify("Email already registered!", "failed");break;
+            case 404: notify("Users doesn't exist!", "failed");break;
+            case 401: notify("Invalid credentials", "failed");break;
+            default: notify(err, "failed");break;
+        }
     });
 }
 
