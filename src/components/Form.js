@@ -4,26 +4,19 @@ import {Authentication} from "../api/authentication";
 
 
 export default function Form({page}) {
-    const [formData, setFormData] = useState({});
-    const handleInput = (e) => {
-        let prevState = formData;
-        prevState[e.target.name] = e.target.value;
-        setFormData(prevState);
-        console.log(formData);
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         for(let b of document.getElementById("hero-form").getElementsByTagName("button")) {b.disabled = true;}
-        console.log("HERE");
-        Authentication(page, {
-                name: formData.name || e.target.name,
-                email: formData.email || e.target.email,
-                password: formData.password || e.target.password
-            }
+        let formData = {
+            email: e.target.email.value
+        };
+        if(page === 1) formData["name"] = e.target.name.value;
+        if(page !== 3) formData["password"] = e.target.password.value;
+        Authentication(page, formData
         ).then(res => {
             console.log("res", res);
-            if(res.status === 200) {
+            if(res?.status === 200) {
                 window.location.href = '/dash';
             }
         });
@@ -56,16 +49,16 @@ export default function Form({page}) {
             <div className={"max-w-[500px]"}>
                 {page === 1 && <div className={"form-element"}>
                     <label>Name</label>
-                    <input type={"text"} required={true} name={'name'} placeholder={"John Doe"} defaultValue={formData.name} onLoadedData={handleInput} onInput={handleInput}/>
+                    <input type={"text"} required={true} name={'name'} placeholder={"John Doe"}/>
                 </div>}
                 <div className={"form-element"}>
                     <label>Email</label>
-                    <input type={"email"} required={true} name={'email'} placeholder={"johndoe@ex.org"} defaultValue={formData.email} onLoadedData={handleInput} onInput={handleInput}/>
+                    <input type={"email"} required={true} name={'email'} placeholder={"johndoe@ex.org"}/>
                 </div>
                 {page !== 3 && <div className={"form-element"}>
                     <label>Password</label>
                     <input type={"password"} required={true} name={'password'}
-                           placeholder={"Enter password"} onInput={handleInput}
+                           placeholder={"Enter password"}
                     />
                 </div>}
 

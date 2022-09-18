@@ -23,11 +23,8 @@ async function Authentication(index, formData) {
             break;
     }
     console.log(API + "auth" + url);
-    return axios.post(API + "auth" + url, {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password
-    }).catch((err) => {
+    return axios.post(API + "auth" + url, formData).catch((err) => {
+        console.log(JSON.stringify(err));
         switch (err.response.status) {
             case 409: notify("Email already registered!", "failed");break;
             case 404: notify("Users doesn't exist!", "failed");break;
