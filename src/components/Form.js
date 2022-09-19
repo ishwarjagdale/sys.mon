@@ -41,7 +41,7 @@ export default function Form({page}) {
                     {page === 2 && "Welcome back"}
                     {page === 3 && "Recover Account"}
                 </p>
-                <p className={"text-gray-500 text-sm pl-1 pt-2"}>
+                <p className={"sec-text text-gray-500 text-sm lg:text-md pl-1 pt-2"}>
                     {page === 1 && "Create an account to start using sys.mon"}
                     {page === 2 && "Welcome back! please enter your details"}
                     {page === 3 && "Enter your email, we'll send you a password reset link"}
@@ -62,14 +62,14 @@ export default function Form({page}) {
                     />
                 </div>}
 
-                {page === 1 && <p className={"text-sm text-gray-600 my-2"}>
+                {page === 1 && <p className={"sec-text text-xs md:text-sm text-gray-600 my-2"}>
                     By signing up, I agree to sys.mon's <a className={"underline underline-offset-2"} href={"/"}>Privacy
                     Policy</a> & <a className={"underline underline-offset-2"} href={"/"}>Terms of Service</a>.
                 </p>}
                 {page === 2 && <div className={"flex justify-end"}>
-                    <a href={"/forgot-password"} className={"text-sm my-1"}>Forgot password</a>
+                    <a href={"/forgot-password"} className={"sec-text text-sm my-1"}>Forgot password</a>
                 </div>}
-                <Button type={"submit"} fill={'black'} border={2} classList={'py-3 mt-4 w-full'}>
+                <Button type={"submit"} fill={'black'} border={2} classList={'py-3 mt-4 w-full text-sm'}>
                     {page === 1 && "Sign up"}
                     {page === 2 && "Log in"}
                     {page === 3 && "Reset Password"}
@@ -77,15 +77,15 @@ export default function Form({page}) {
                 {page !== 3 &&
                     <>
                         <div className={"flex justify-center my-1"}>
-                            <span className={'text-gray-600'}>or</span>
+                            <span className={'text-sm text-gray-600 sec-text'}>or</span>
                         </div>
                         <Button border={2} classList={'py-3 w-full'}>
-                            <span><span className={"fab fa-google mr-2"}/>Sign in with Google</span>
+                            <span className={"text-sm lg:text-md"}><span className={"fab fa-google mr-2"}/>Sign in with Google</span>
                         </Button>
                     </>
                 }
                 <div className={"flex"}>
-                    <a href={page === 1 ? "/login" : page === 2 ? "/get-started" : "/"} className={"text-sm mt-2 mx-auto"}>
+                    <a href={page === 1 ? "/login" : page === 2 ? "/get-started" : "/"} className={"sec-text text-xs md:text-sm mt-4 mx-auto"}>
                         {page === 1 && "Have an account? Sign in"}
                         {page === 2 && "Don't have an account? Sign up"}
                     </a>
