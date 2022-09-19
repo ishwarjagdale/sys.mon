@@ -3,30 +3,34 @@
 @tailwind utilities;
 
 * {
-    box-sizing: content-box;
+    box-sizing: border-box;
 }
 
 body {
     width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    /*background-size: cover;*/
-    /*background: url("img/possibility.webp") no-repeat center;*/
+    min-height: 100vh;
+    overflow-x: hidden;
+    /*background: url("img/possibility.webp");*/
     /*color: lavender;*/
 }
 
 #root {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 100%;
     align-items: center;
     justify-content: space-between;
     font-family: Poppins, sans-serif;
 }
 
-
 #hero-section h1 {
     line-height: 90px;
+}
+
+@media screen and (max-width: 1278px) {
+    #hero-section h1 {
+        line-height: 52px;
+    }
 }
 
 #heroImage {
@@ -129,3 +133,28 @@ button:disabled {
     background-color: lightcoral;
 }
 
+@media screen and (max-width: 1024px) {
+    #side-menu {
+        position: fixed;
+        left: 0;
+        top: 100px;
+        width: 100vw;
+        height: calc(100vh - 120px);
+        background: white;
+        z-index: 10;
+        align-items: center;
+        flex-direction: column;
+    }
+    #side-menu ul {
+        width: 100%;
+        align-items: start;
+        flex-direction: column;
+        margin: 0 0 40px;
+    }
+    #side-menu ul > li {
+        padding: 12px 50% 12px 12px;
+        margin-bottom: 10px;
+        font-weight: bolder;
+        border-bottom: 2px solid #9ca3af;
+    }
+}

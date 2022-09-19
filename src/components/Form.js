@@ -35,18 +35,18 @@ export default function Form({page}) {
                         </span>
             </div>
             <hr className={"mt-2 mb-4"}/>
-            <p className={"font-bold text-3xl pt-2"}>
-                {page === 1 && "Register"}
-                {page === 2 && "Welcome back"}
-                {page === 3 && "Recover Account"}
-            </p>
-            <p className={"text-gray-500 pl-1 pt-2"}>
-                {page === 1 && "Create an account to start using sys.mon"}
-                {page === 2 && "Welcome back! please enter your details"}
-                {page === 3 && "Enter your email, we'll send you a password reset link"}
-            </p>
-            <br/>
-            <div className={"max-w-[500px]"}>
+            <div className={"max-w-[500px] mx-auto md:ml-0 md:mr-auto"}>
+                <p className={"font-bold text-3xl pt-2"}>
+                    {page === 1 && "Register"}
+                    {page === 2 && "Welcome back"}
+                    {page === 3 && "Recover Account"}
+                </p>
+                <p className={"text-gray-500 pl-1 pt-2"}>
+                    {page === 1 && "Create an account to start using sys.mon"}
+                    {page === 2 && "Welcome back! please enter your details"}
+                    {page === 3 && "Enter your email, we'll send you a password reset link"}
+                </p>
+                <br/>
                 {page === 1 && <div className={"form-element"}>
                     <label>Name</label>
                     <input type={"text"} required={true} name={'name'} placeholder={"John Doe"}/>
@@ -69,7 +69,7 @@ export default function Form({page}) {
                 {page === 2 && <div className={"flex justify-end"}>
                     <a href={"/forgot-password"} className={"text-sm my-1"}>Forgot password</a>
                 </div>}
-                <Button type={"submit"} fill={'black'} border={2} classList={'max-w-[452px] py-3 mt-4 w-full'}>
+                <Button type={"submit"} fill={'black'} border={2} classList={'py-3 mt-4 w-full'}>
                     {page === 1 && "Sign up"}
                     {page === 2 && "Log in"}
                     {page === 3 && "Reset Password"}
@@ -79,7 +79,7 @@ export default function Form({page}) {
                         <div className={"flex justify-center my-1"}>
                             <span className={'text-gray-600'}>or</span>
                         </div>
-                        <Button border={2} classList={'max-w-[452px] py-3 w-full'}>
+                        <Button border={2} classList={'py-3 w-full'}>
                             <span><span className={"fab fa-google mr-2"}/>Sign in with Google</span>
                         </Button>
                     </>
