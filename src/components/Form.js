@@ -25,7 +25,7 @@ export default function Form({page}) {
 
 
     return (
-        <form id={"hero-form"} className={"flex-1 p-8 rounded flex-col"} onSubmit={handleSubmit}>
+        <form id={"hero-form"} className={"flex-1 p-6 rounded flex-col"} onSubmit={handleSubmit}>
             <div className={"flex items-center"}>
                 <span onClick={() => window.history.back()} className={"fas fa-arrow-left mr-2 cursor-pointer"}/>
                 <span className={"font-bold text-lg text-gray-500 block"}>
@@ -41,7 +41,7 @@ export default function Form({page}) {
                     {page === 2 && "Welcome back"}
                     {page === 3 && "Recover Account"}
                 </p>
-                <p className={"text-gray-500 pl-1 pt-2"}>
+                <p className={"text-gray-500 text-sm pl-1 pt-2"}>
                     {page === 1 && "Create an account to start using sys.mon"}
                     {page === 2 && "Welcome back! please enter your details"}
                     {page === 3 && "Enter your email, we'll send you a password reset link"}
