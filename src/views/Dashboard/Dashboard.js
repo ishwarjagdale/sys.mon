@@ -1,6 +1,18 @@
 import "./Dashboard.css";
+import SysCon from "./sysCon";
+import {Logout} from "../../api/authentication";
 
 export default function Dashboard() {
+    const handleLogout = () => {
+        Logout().then(res => {
+            if(res.status === 200)
+                window.location.href = "/";
+        }).catch((e) => {
+            console.log(e);
+            window.location.href = "/";
+        })
+    }
+
     return (
         <div id={"dashboard"} className={"w-full flex"}>
             <div id={"side-bar"}
@@ -34,7 +46,7 @@ export default function Dashboard() {
                         <i className={"fas fa-gear"}/>
                         <span>Settings</span>
                     </li>
-                    <li>
+                    <li onClick={handleLogout}>
                         <i className={"fas fa-sign-out"}/>
                         <span>Log out</span>
                     </li>
@@ -51,7 +63,8 @@ export default function Dashboard() {
                         <i className={"fas fa-search"}/>
                         <input type={"text"} placeholder={"Search"} className={"bg-transparent pl-4 w-2/3 outline-0"} />
                     </div>
-                    <i className={"fas fa-bars-staggered md:hidden p-2"} onClick={() => {
+                    <i className={"fas fa-bars-staggered md:hidden rounded p-2 z-50 cursor-pointer"} onClick={(e) => {
+                        e.target.classList.toggle("bg-white");
                         document.getElementById("side-bar").classList.toggle("hidden");
                         document.getElementById("side-bar").classList.toggle("short-side");
                     }}/>
@@ -70,10 +83,13 @@ export default function Dashboard() {
                                 <span className={"font-bold text-3xl lg:text-6xl text-gray-400 mr-2 lg:mr-4"}>Welcome,</span>
                                 <span className={"font-bold text-3xl lg:text-6xl text-gray-800"}>William</span>
                             </div>
-                            <span className={"m-1 lg:m-2 text-sm lg:text-md"}>hey! you have zero systems connected, we are waiting 🥲</span>
+                            <span className={"m-1 lg:m-2 text-xs w-5/6 lg:text-sm"}>hey! you have zero systems connected, we are waiting 🥲</span>
                         </div>
-                        <div id={"systems"} className={"flex-1"}>
-
+                        <div id={"systems"} className={"flex-1 flex flex-col mx-2 mt-8"}>
+                            <span className={"text-xl font-bold mb-5 block"}>Active Systems</span>
+                            <SysCon data={0}/>
+                            <SysCon data={0}/>
+                            <SysCon/>
                         </div>
                     </div>
                     <div id={"right-side-bar"}

@@ -17,6 +17,8 @@
     border-color: ghostwhite;
 }
 
+
+
 #side-bar {
     transition: all 0.3s ease-in;
 }
@@ -35,6 +37,7 @@ display: none;
     align-items: center;
     justify-content: start;
     width: 100%;
+    cursor: pointer;
 }
 #side-bar ul > li > i {
     padding: 1.5rem 0;
@@ -42,7 +45,7 @@ display: none;
     text-align: center;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 720px) {
     .short-side {
         position: fixed;
         width: calc(100vw - 1rem);
@@ -56,11 +59,11 @@ display: none;
     #side-bar {
         position: fixed;
         color: ghostwhite;
+        background: #1f1f1f;
         width: calc(100vw - 1rem);
         height: calc(100vh - 1rem);
         margin: 0.5rem;
         box-shadow: 0 0 10px 0 #e4e4e4;
-        background: #1f1f1f;
     }
 }
 

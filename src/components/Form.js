@@ -16,7 +16,7 @@ export default function Form({page}) {
         ).then(res => {
             console.log("res", res);
             if(res?.status === 200) {
-                window.location.href = '/dash';
+                window.location.href = '/dashboard';
             }
         });
         for(let b of document.getElementById("hero-form").getElementsByTagName("button")) {b.disabled = false;}
