@@ -2,6 +2,7 @@ import Navigation from "./components/Navigation";
 import HeroSection from "./components/HeroSection";
 import Footer from "./components/Footer";
 import {useState} from "react";
+import "./App.css";
 
 function App({page=0}) {
 

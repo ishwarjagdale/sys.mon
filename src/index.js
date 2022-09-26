@@ -6,7 +6,8 @@ import {
     createBrowserRouter,
     RouterProvider
 } from "react-router-dom";
-import Dashboard from "./views/Dashboard";
+import Dash from "./views/dash";
+import Dashboard from "./views/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,9 @@ const router = createBrowserRouter([
         element: <App page={3}/>
     }, {
         path: "/dash",
+        element: <Dash/>
+    }, {
+        path: "/dashboard",
         element: <Dashboard/>
     }
 ]);
