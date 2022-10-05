@@ -6,6 +6,7 @@
 
 .active {
     font-weight: bolder;
+    border-left: 2px solid black;
 }
 
 .conts {
@@ -22,22 +23,28 @@
 #side-bar {
     transition: all 0.3s ease-in;
 }
-#side-bar span {
+#side-bar span, #side-bar a {
     padding: 0 1.5rem;
 }
 .short-side {
     width: auto!important;
 }
-.short-side span {
+.short-side span, .short-side a {
 display: none;
 }
-
+#side-bar li, #side-bar > i, #side-bar div {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
 #side-bar ul > li {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     width: 100%;
     cursor: pointer;
+}
+#side-bar ul > li:hover {
+    background: #e5e7eb;
 }
 #side-bar ul > li > i {
     padding: 1.5rem 0;

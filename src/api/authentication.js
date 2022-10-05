@@ -34,8 +34,17 @@ async function Authentication(index, formData) {
     });
 }
 
-async function Logout() {
-    return await axios.get(API + "auth/logout")
+async function is_login() {
+    return await axios.get(API + "auth/login").catch((err) => {
+        switch (err.response.status) {
+            case 401: notify("Need authentication", 'failed');break;
+            default: notify(err, 'failed');break;
+        }
+    });
 }
 
-export {Authentication, Logout};
+async function Logout() {
+    return await axios.get(API + "auth/logout");
+}
+
+export {Authentication, Logout, is_login};
