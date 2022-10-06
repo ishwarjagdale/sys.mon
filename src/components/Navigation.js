@@ -1,10 +1,8 @@
 import Button from "./Button";
-import {useState} from "react";
 
-function Navigation({setPage}) {
-    const [sideMenu, setSideMenu] = useState(false);
+function Navigation() {
     return (
-        <div id={"navbar"} className={"flex w-full bg-transparent backdrop-blur p-8 lg:px-24 justify-between items-center  sticky top-0 z-10"}>
+        <div id={"navbar"} className={"flex w-full bg-transparent backdrop-blur p-8 lg:px-24 justify-between items-center  sticky top-0 z-10 pb-1"}>
             <a href={"/"} className={"flex text-xl md:text-2xl items-center"}>
                 <span className={"fas fa-server mr-2"}/>
                 <span className={"font-[900]"}>sys.mon</span>

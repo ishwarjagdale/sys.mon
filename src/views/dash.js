@@ -1,7 +1,7 @@
 import Button from "../components/Button";
 import {Logout} from "../api/authentication";
 
-export default function Dashboard() {
+export default function Dash() {
 
     const handleLogout = () => {
         Logout().then(res => {

@@ -1,0 +1,56 @@
+#hero-section h1 {
+    line-height: 90px;
+}
+
+@media screen and (max-width: 1278px) {
+    #hero-section h1 {
+        line-height: 52px;
+    }
+}
+
+#heroImage {
+    height: 100%;
+}
+
+.nav-links li {
+    margin: 0 16px;
+    transition: all ease-in;
+}
+
+
+.nav-links > li > a {
+    opacity: 0.9;
+}
+.nav-links > li > a:hover {
+    opacity: 1;
+    font-weight: bolder;
+}
+@media screen and (max-width: 1024px) {
+    input::placeholder {
+        font-size: 14px;
+    }
+
+    #side-menu {
+        position: fixed;
+        left: 0;
+        top: 100px;
+        width: 100vw;
+        height: calc(100vh - 120px);
+        background: white;
+        z-index: 10;
+        align-items: center;
+        flex-direction: column;
+    }
+    #side-menu ul {
+        width: 100%;
+        align-items: start;
+        flex-direction: column;
+        margin: 0 0 40px;
+    }
+    #side-menu ul > li {
+        padding: 12px 50% 12px 12px;
+        margin-bottom: 10px;
+        font-weight: bolder;
+        border-bottom: 2px solid #9ca3af;
+    }
+}

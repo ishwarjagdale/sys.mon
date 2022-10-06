@@ -1,13 +1,15 @@
 import Button from "./Button";
-import {useState} from "react";
 import {Authentication} from "../api/authentication";
+import {useState} from "react";
 
 
 export default function Form({page}) {
 
+    const [loading, set_loader] = useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        for(let b of document.getElementById("hero-form").getElementsByTagName("button")) {b.disabled = true;}
+        set_loader(true);
         let formData = {
             email: e.target.email.value
         };
@@ -17,10 +19,10 @@ export default function Form({page}) {
         ).then(res => {
             console.log("res", res);
             if(res?.status === 200) {
-                window.location.href = '/dash';
+                window.location.href = '/dashboard';
             }
         });
-        for(let b of document.getElementById("hero-form").getElementsByTagName("button")) {b.disabled = false;}
+        set_loader(false);
     }
 
 
@@ -69,17 +71,22 @@ export default function Form({page}) {
                 {page === 2 && <div className={"flex justify-end"}>
                     <a href={"/forgot-password"} className={"sec-text text-sm my-1"}>Forgot password</a>
                 </div>}
-                <Button type={"submit"} fill={'black'} border={2} classList={'py-3 mt-4 w-full text-sm'}>
-                    {page === 1 && "Sign up"}
-                    {page === 2 && "Log in"}
-                    {page === 3 && "Reset Password"}
+                <Button type={"submit"} fill={'black'} border={2} classList={'py-3 mt-4 w-full text-sm'} disable={loading}>
+                    {
+                        loading ? <span className={"fas fa-spinner animate-spin text-white"} />
+                            :
+                            page === 1 ? "Sign up" :
+                            page === 2 ? "Log in" :
+                            page === 3 ? "Reset Password":
+                                "null"
+                    }
                 </Button>
                 {page !== 3 &&
                     <>
                         <div className={"flex justify-center my-1"}>
                             <span className={'text-sm text-gray-600 sec-text'}>or</span>
                         </div>
-                        <Button border={2} classList={'py-3 w-full'}>
+                        <Button border={2} classList={'py-3 w-full'} disable={true}>
                             <span className={"text-sm lg:text-md"}><span className={"fab fa-google mr-2"}/>Sign in with Google</span>
                         </Button>
                     </>
