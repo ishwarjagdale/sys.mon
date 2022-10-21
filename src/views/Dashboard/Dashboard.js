@@ -3,22 +3,20 @@ import {is_login, Logout} from "../../api/authentication";
 import {useEffect, useState} from "react";
 import Systems from "./Systems";
 import Search from "./Search";
-import {useNavigate} from "react-router-dom";
 
 export default function Dashboard() {
 
     const [user, set_user] = useState(false);
     const [systems, set_systems] = useState([]);
-    const navigate = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem('user');
         Logout().then(res => {
             if(res.status === 200)
-                navigate("/")
+                window.location.href = '/';
         }).catch((e) => {
             console.log(e);
-            navigate("/");
+            window.location.href = '/';
         })
     }
 
@@ -30,7 +28,7 @@ export default function Dashboard() {
             }
         }).catch((e) => {
             console.log(e);
-            navigate("/login");
+            window.location.href = '/login';
         })
     }, []);
 
