@@ -18,7 +18,7 @@ export default function Systems({systems, set_systems}) {
 
     return (
         <div id={"systems"} className={"flex-1 flex flex-col mx-2 mt-8"}>
-            <span className={"text-xl font-bold mb-5 block"}>Active Systems</span>
+            <span className={"text-xl font-bold mx-2 mb-5 block"}>Your Systems</span>
             {
                 systems.map((s, i) => <SystemCard key={i} data={s}/>)
             }

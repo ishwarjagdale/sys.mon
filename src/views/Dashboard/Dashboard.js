@@ -3,20 +3,22 @@ import {is_login, Logout} from "../../api/authentication";
 import {useEffect, useState} from "react";
 import Systems from "./Systems";
 import Search from "./Search";
+import {useNavigate} from "react-router-dom";
 
 export default function Dashboard() {
 
-    const [user, set_user] = useState(JSON.parse(localStorage.getItem('user')));
+    const [user, set_user] = useState(false);
     const [systems, set_systems] = useState([]);
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem('user');
         Logout().then(res => {
             if(res.status === 200)
-                window.location.href = "/";
+                navigate("/")
         }).catch((e) => {
             console.log(e);
-            window.location.href = "/";
+            navigate("/");
         })
     }
 
@@ -28,7 +30,7 @@ export default function Dashboard() {
             }
         }).catch((e) => {
             console.log(e);
-            window.location.href = "/login";
+            navigate("/login");
         })
     }, []);
 
@@ -38,8 +40,10 @@ export default function Dashboard() {
                 <div id={"side-bar"}
                      className={"flex hidden md:flex flex-col w-full lg:w-[350px] items-start justify-between m-2 rounded-xl py-5 lg:py-8 overflow-hidden flex-col lg:pb-12 border text-gray-800"}>
                     <div className={"flex items-center justify-start"}>
-                        <i className="fas fa-server py-6"/>
-                        <a href={"/dashboard"} className={"font-bold p-6 pl-0"}>sys.mon</a>
+                        <a href={"/dashboard"}>
+                            <i className="fas fa-server py-6"/>
+                            <span className={"font-bold p-6 pl-0"}>sys.mon</span>
+                        </a>
                     </div>
                     <hr className={"border-1 w-4"}/>
                     <ul className={"flex flex-col w-full items-start mt-20 mb-auto m-0"}>
@@ -94,7 +98,7 @@ export default function Dashboard() {
                         </div>
                     </div>
                     <div className={"flex w-full h-full"}>
-                        <div id={"content"} className={"rounded-xl flex-1 mx-2 h-full flex p-8 px-4 lg:px-8 flex-col"}>
+                        <div id={"content"} className={"rounded-xl flex-1 mx-2 h-full flex py-8 px-2 lg:px-8 flex-col"}>
                             <div className={"mx-2 flex flex-col"}>
                                 <div className={"flex flex-1"}>
                                     <span className={"font-bold text-3xl lg:text-6xl text-gray-400 mr-2 lg:mr-4"}>Welcome,</span>

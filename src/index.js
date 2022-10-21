@@ -6,7 +6,7 @@ import {
     createBrowserRouter,
     RouterProvider
 } from "react-router-dom";
-import Dash from "./views/dash";
+import Oops from "./views/oops";
 import Dashboard from "./views/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
@@ -23,8 +23,11 @@ const router = createBrowserRouter([
         path: "/forgot-password",
         element: <App page={3}/>
     }, {
-        path: "/dash",
-        element: <Dash/>
+        path: "/verification",
+        element: <App page={4}/>
+    }, {
+        path: "/oops",
+        element: <Oops/>
     }, {
         path: "/dashboard",
         element: <Dashboard/>

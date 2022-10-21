@@ -19,16 +19,21 @@ async function Authentication(index, formData) {
             url = "/reset-password";
             break;
         }
+        case 4: {
+            url = "/verification";
+            break;
+        }
         default:
             break;
     }
-    console.log(API + "auth" + url);
+    console.log(API + "auth" + url, formData);
     return axios.post(API + "auth" + url, formData).catch((err) => {
         console.log(JSON.stringify(err));
-        switch (err.response.status) {
+        switch (err.response.code) {
             case 409: notify("Email already registered!", "failed");break;
             case 404: notify("Users doesn't exist!", "failed");break;
             case 401: notify("Invalid credentials", "failed");break;
+            case 403: notify("Needs authentication", "failed");break;
             default: notify(err, "failed");break;
         }
     });
