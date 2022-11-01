@@ -55,6 +55,9 @@ body {
     border: 1px solid #d1d1d1;
     border-radius: 8px;
 }
+.form-element input::placeholder {
+    font-size: 14px;
+}
 
 .fa-google {
     background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
@@ -116,7 +119,7 @@ button:disabled {
 }
 
 .info {
-    background-color: lightblue;
+    background-color: lightcoral;
 }
 .failed {
     background-color: lightcoral;
