@@ -24,7 +24,7 @@ class SystemCard extends React.Component {
 
     createConnection() {
         if (this.props.data) {
-            this.conn = new WebSocket(`ws://${this.props.data.ip_addr}/`);
+            this.conn = new WebSocket(`wss://${this.props.data.ip_addr}/`);
             this.conn.onopen = () => {
                 this.setState({active: true});
                 this.conn.send("Connection from " + window.location.href);
