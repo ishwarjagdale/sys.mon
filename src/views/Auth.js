@@ -86,6 +86,7 @@ class Auth extends React.Component {
                     case 3:
                         if(this.props.params.resetToken) {
                             notify("Password changed successfully", 'success');
+                            window.location.href = "/dashboard";
                             break;
                         }
                         notify("Reset link sent", 'success');
