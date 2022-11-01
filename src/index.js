@@ -6,25 +6,43 @@ import {
     createBrowserRouter,
     RouterProvider
 } from "react-router-dom";
-import Dash from "./views/dash";
+import Oops from "./views/oops";
 import Dashboard from "./views/Dashboard/Dashboard";
+import Home from "./views/Home";
+import Auth from "./views/Auth";
 
 const router = createBrowserRouter([
     {
-        path: "/",
-        element: <App/>
+        element: <App/>,
+        children: [
+            {
+                path: '/',
+                element: <Home/>
+            },
+            {
+                path: '/get-started',
+                element: <Auth page={1}/>
+            },
+            {
+                path: '/login',
+                element: <Auth page={2}/>
+            },
+            {
+                path: '/forgot-password',
+                element: <Auth page={3}/>
+            },
+            {
+                path: '/forgot-password/:resetToken',
+                element: <Auth page={3}/>
+            },
+            {
+                path: '/verification',
+                element: <Auth page={4}/>
+            }
+        ]
     }, {
-        path: "/get-started",
-        element: <App page={1}/>
-    }, {
-        path: "/login",
-        element: <App page={2}/>
-    }, {
-        path: "/forgot-password",
-        element: <App page={3}/>
-    }, {
-        path: "/dash",
-        element: <Dash/>
+        path: "/oops",
+        element: <Oops/>
     }, {
         path: "/dashboard",
         element: <Dashboard/>
@@ -34,6 +52,6 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router}/>
+        <RouterProvider router={router} errorElement={<Oops/>}/>
     </React.StrictMode>
 );

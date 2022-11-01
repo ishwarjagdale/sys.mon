@@ -4,6 +4,7 @@
     /*background: #e4e4e4;*/
 }
 
+
 .active {
     font-weight: bolder;
     border-left: 2px solid black;
@@ -23,13 +24,13 @@
 #side-bar {
     transition: all 0.3s ease-in;
 }
-#side-bar span, #side-bar a {
+#side-bar span {
     padding: 0 1.5rem;
 }
 .short-side {
     width: auto!important;
 }
-.short-side span, .short-side a {
+.short-side span {
 display: none;
 }
 #side-bar li, #side-bar > i, #side-bar div {
@@ -76,4 +77,8 @@ display: none;
 
 #content {
     /*background: url("https://cdn.dribbble.com/users/683081/screenshots/2728654/media/7bb2b47d0574d39b20354620e4fa50c8.png") center no-repeat;*/
+}
+
+#systems span {
+    min-width: 64px;
 }
