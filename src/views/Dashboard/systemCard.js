@@ -27,6 +27,7 @@ class SystemCard extends React.Component {
             this.conn = new WebSocket(`wss://${this.props.data.ip_addr}/`);
             this.conn.onopen = () => {
                 this.setState({active: true});
+                this.props.set_as(new Set([...this.props.active_systems.add(this.props.data.sys_id)]));
                 this.conn.send("Connection from " + window.location.href);
             }
             this.conn.onmessage = (event) => {
@@ -36,6 +37,11 @@ class SystemCard extends React.Component {
             }
             this.conn.onclose = (event) => {
                 this.setState({active: false, stats: {}});
+                let temp = [...this.props.active_systems];
+                if(temp.includes(this.props.data.sys_id))
+                    temp.pop(this.props.data.sys_id);
+                console.log(temp);
+                this.props.set_as(new Set(temp));
                 console.log("this.conn closed", this.props.data.ip_addr);
             }
             console.log(this.conn);
@@ -61,7 +67,7 @@ class SystemCard extends React.Component {
                 </div>
             )
         return (
-            <div className={"border-2 w-full rounded-md p-4 mb-2 flex items-center justify-between"}>
+            <div className={"border-2 w-full rounded-md p-4 mb-2 flex items-center justify-between"} aria-label={this.state.active ? "Active" : "DC"}>
                 <i className={"fas fa-server p-6 lg:p-8 md:px-10 text-center"}/>
                 <div className={"flex flex-col lg:flex-row lg:items-center flex-1"}>
                     <div className={"flex flex-col items-start w-fit mx-4 mr-auto"}>

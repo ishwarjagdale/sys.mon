@@ -8,6 +8,7 @@ export default function Dashboard() {
 
     const [user, set_user] = useState(false);
     const [systems, set_systems] = useState([]);
+    const [active_systems, set_as] = useState(new Set());
 
     const handleLogout = () => {
         localStorage.removeItem('user');
@@ -104,15 +105,31 @@ export default function Dashboard() {
                                 </div>
                                 <span className={"m-1 lg:m-2 text-xs w-5/6 lg:text-sm"}>{
                                     systems.length ?
-                                        "Everything seems fine 😗"
+                                        active_systems.size === systems.length ? "Everything seems fine 😗" : `🫡 Looks like you have ${systems.length - active_systems.size} system(s) down`
                                         :
                                         "hey! you have zero systems connected, we are waiting 🥲"
                                 }</span>
                             </div>
-                            <Systems systems={systems} set_systems={set_systems} />
+                            <Systems systems={systems} set_systems={set_systems} set_as={set_as} active_systems={active_systems} />
                         </div>
                         <div id={"right-side-bar"}
-                             className={"flex m-2 hidden bg-white lg:block flex-col w-[350px] items-start justify-between rounded-xl p-5 lg:p-8 overflow-hidden flex-col lg:pb-12 text-gray-800 border"}>
+                             className={"flex m-2 hidden bg-white lg:block flex-col w-[400px] items-start rounded-2xl justify-between p-8 overflow-hidden flex-col text-gray-800 border"}>
+                            <span className={"font-bold text-lg"}>Stats</span><hr className={"mt-2 mb-4"}/>
+
+                            <div className={"flex items-center py-2 justify-between"}>
+                                <span className={"text-md"}>Total Systems</span>
+                                <span className={"font-bold text-xl font-monospace"}>{systems.length.toString().padStart(2, '0')}</span>
+                            </div>
+                            <div className={"py-2"}>
+                                <div className={"flex items-center justify-between"}>
+                                    <span className={"text-md"}>Active Systems</span>
+                                    <span className={"font-bold text-green-600 text-xl"}>{active_systems.size.toString().padStart(2, '0')}</span>
+                                </div>
+                                <progress value={active_systems.size} max={systems.length} className={"w-full h-[4px] my-2"} />
+                            </div>
+
+
+
                         </div>
                     </div>
                 </div>
