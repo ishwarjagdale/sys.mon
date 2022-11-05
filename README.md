@@ -1,4 +1,4 @@
-# sys.mon Project
+# sys.mon Project (in progress)
 
 sys.mon is a ReactJS - Flask (Python) application that monitors performance of remote servers from a dashboard
 
