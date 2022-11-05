@@ -27,13 +27,22 @@
     #side-menu {
         position: fixed;
         left: 0;
-        top: 100px;
+        top: 92px;
         width: 100vw;
-        height: calc(100vh - 120px);
-        background: white;
         z-index: 10;
         align-items: center;
+        border-radius: 0 0 32px 32px;
         flex-direction: column;
+    }
+    #side-menu::after {
+        content: " ";
+        width: 25vw;
+        max-width: 200px;
+        height: 6px;
+        border-radius: 8px 8px 0 0;
+        background-color: #9ca3af;
+        display: block;
+        margin: 20px auto 0;
     }
     #side-menu ul {
         width: 100%;
@@ -42,9 +51,102 @@
         margin: 0 0 40px;
     }
     #side-menu ul > li {
-        padding: 12px 50% 12px 12px;
+        padding: 12px 50vw 12px 12px;
         margin-bottom: 10px;
         font-weight: bolder;
-        border-bottom: 2px solid #9ca3af;
+        border-bottom: 1px solid slategray;
+    }
+}
+
+
+.dark {
+    background-color: #0d1117;
+    color: white;
+}
+.dark #navbar {
+    background-color: #161b22;
+}
+
+.dark #navbar button {
+    border: none;
+}
+.dark #footer {
+    color: #9ca3af;
+}
+.dark .fab {
+    color: slategray;
+}
+.dark button {
+    background-color: mediumseagreen;
+    color: whitesmoke;
+}
+.dark button:hover {
+    background-color: black;
+}
+.dark .sec-btn {
+    background-color: #0d1117;
+    color: ghostwhite;
+}
+.dark .sec-text {
+    color: #9ca3af;
+}
+.dark #side-menu {
+    background-color: #161b22;
+}
+.dark input {
+    color: white;
+    background-color: #1f1f1f;
+    border: 0;
+}
+.dark hr, .dark span {
+    border-color: slategray;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #1f1f1f inset !important;
+    -webkit-text-fill-color: white !important;
+}
+
+.dark div {
+    border-color: #21262d;
+}
+.dark #dashboard span, .dark #dashboard i, .dark #dashboard a {
+    color: #c9d1d9;
+}
+.dark li.active {
+    border-color: ghostwhite;
+}
+.dark #side-bar li:hover {
+    background-color: #1f1f1f;
+}
+.dark .username {
+    color: aquamarine!important;
+}
+.dark #search-bar input {
+    background-color: #0d1117;
+}
+.dark .text-green-600 {
+    color: rgba(22, 163, 74)!important;
+}
+.dark .text-red-600 {
+    color: rgba(220, 38, 38)!important;
+}
+.dark .text-yellow-600 {
+    color: rgba(202, 138, 4)!important;
+}
+
+.dark #systems i {
+    color: dimgray;
+}
+
+@media screen and (min-width: 1024px) {
+    .dark #navbar {
+        background-color: transparent;
+    }
+    .dark #side-menu {
+        background-color: transparent;
     }
 }

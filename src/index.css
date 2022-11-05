@@ -28,7 +28,7 @@ body {
 /*}*/
 
 progress::-webkit-progress-bar {
-    background-color: #e4e4e4;
+    background-color: #21262d;
 }
 
 html {
@@ -57,13 +57,22 @@ html {
     background: black;
 }
 
-#root {
+#root, #web {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    width: 100vw;
     align-items: center;
     justify-content: space-between;
     font-family: Poppins, sans-serif;
+}
+
+@media screen and (min-width: 1024px) {
+    #web {
+        background-image: url("/src/img/bgImage.webp");
+        background-size: cover;
+        background-position: bottom;
+    }
 }
 
 

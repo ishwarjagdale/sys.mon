@@ -136,10 +136,10 @@ class Auth extends React.Component {
         const ForgotPassword = () => <div className={"flex justify-end"}>
             <a href={"/forgot-password"} className={"sec-text text-sm my-1"}>Forgot password</a>
         </div>
-        const GoogleSignIn = () => <><div className={"flex justify-center my-1"}>
+        const GoogleSignIn = () => <><div className={"flex justify-center my-2"}>
             <span className={'text-sm text-gray-600 sec-text'}>or</span>
         </div>
-            <Button border={2} classList={'py-3 w-full'} disable={true}>
+            <Button border={0} classList={'py-3 w-full sec-btn'} disable={true}>
                 <span className={"text-sm lg:text-md"}><span className={"fab fa-google mr-2"}/>Sign in with Google</span>
             </Button></>
         const SignUpPrompt = ({have}) => <div className={"flex"}>
@@ -212,7 +212,7 @@ class Auth extends React.Component {
             <>
                 <form id={"hero-form"} className={"flex-1 w-full p-6 rounded flex-col"} onSubmit={this.handleSubmit}>
                     <div className={"flex items-center"}>
-                        <span onClick={() => window.history.back()} className={"fas fa-arrow-left mr-2 cursor-pointer"}/>
+                        <span onClick={() => window.history.back()} className={"fas fa-arrow-left mr-2 cursor-pointer text-slate-400"}/>
                         <span className={"font-bold text-lg text-gray-500 block"}>
                             {this.props.page === 1 && "Get Started"}
                             {this.props.page === 2 && "Log in"}
@@ -240,7 +240,7 @@ class Auth extends React.Component {
                         <PageLoader/>
                     </div>
                 </form>
-                <img id={"heroImage"} src={heroImage} className={"hidden lg:block md:max-w-[50%] px-4"} alt={"process"} title={"Designed by slidesgo / Freepik"}/>
+                {/*<img id={"heroImage"} src={heroImage} className={"hidden lg:block md:max-w-[50%] px-4"} alt={"process"} title={"Designed by slidesgo / Freepik"}/>*/}
             </>
         )
     }

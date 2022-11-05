@@ -31,7 +31,7 @@ export default function Dashboard() {
                 <div className={"mx-2 flex flex-col"}>
                     <div className={"flex flex-1"}>
                         <span className={"font-bold text-3xl lg:text-6xl text-gray-400 mr-2 lg:mr-4"}>Welcome,</span>
-                        <span className={"font-bold text-3xl lg:text-6xl text-gray-800"}>{user.name.split(" ")[0]}</span>
+                        <span className={"font-bold text-3xl lg:text-6xl text-gray-800 username"}>{user.name.split(" ")[0]}</span>
                     </div>
                     <span className={"m-1 lg:m-2 text-xs w-5/6 lg:text-sm"}>{
                         systems.length ?
@@ -43,7 +43,7 @@ export default function Dashboard() {
                 <Systems systems={systems} set_systems={set_systems} set_as={set_as} active_systems={active_systems} />
             </div>
             <div id={"right-side-bar"}
-                 className={"flex m-2 hidden bg-white lg:block flex-col w-[400px] items-start rounded-2xl justify-between p-8 overflow-hidden flex-col text-gray-800 border"}>
+                 className={"flex m-2 hidden lg:block flex-col w-[400px] items-start rounded-2xl justify-between p-8 overflow-hidden flex-col text-gray-800 border"}>
                 <span className={"font-bold text-lg"}>Stats</span><hr className={"mt-2 mb-4"}/>
 
                 <div className={"flex items-center py-2 justify-between"}>
