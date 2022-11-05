@@ -64,13 +64,14 @@ display: none;
     }
 
     #side-bar {
+        z-index: 10;
         position: fixed;
         color: ghostwhite;
         background: #1f1f1f;
         width: calc(100vw - 1rem);
         height: calc(100vh - 1rem);
         margin: 0.5rem;
-        box-shadow: 0 0 10px 0 #e4e4e4;
+        /*box-shadow: 0 0 10px 0 #e4e4e4;*/
     }
 }
 

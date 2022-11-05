@@ -65,7 +65,7 @@ class Sidebar extends React.Component {
                 document.getElementById("side-bar").classList.toggle("short-side");
                 e.target.classList.toggle("fa-chevron-circle-left");
                 e.target.classList.toggle("fa-chevron-circle-right");
-            }} className={"mt-8 cursor-pointer fas fa-chevron-circle-left "}/>
+            }} className={"mt-8 mb-6 cursor-pointer fas fa-chevron-circle-left "}/>
         </div>
     }
 }

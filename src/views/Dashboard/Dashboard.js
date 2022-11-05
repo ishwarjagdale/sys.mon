@@ -14,7 +14,7 @@ export default function Dashboard() {
         <div id={"top-bar"} className={"m-2 p-6 pb-0 lg:p-8 lg:pb-0 flex items-center flex-1 justify-between"}>
             <Search/>
             <i className={"fas fa-bars-staggered md:hidden rounded p-2 z-50 cursor-pointer"} onClick={(e) => {
-                e.target.classList.toggle("bg-white");
+                e.target.classList.toggle("bg-[#161b22]");
                 document.getElementById("side-bar").classList.toggle("hidden");
                 document.getElementById("side-bar").classList.toggle("short-side");
             }}/>
@@ -42,20 +42,25 @@ export default function Dashboard() {
                 </div>
                 <Systems systems={systems} set_systems={set_systems} set_as={set_as} active_systems={active_systems} />
             </div>
-            <div id={"right-side-bar"}
-                 className={"flex m-2 hidden lg:block flex-col w-[400px] items-start rounded-2xl justify-between p-8 overflow-hidden flex-col text-gray-800 border"}>
-                <span className={"font-bold text-lg"}>Stats</span><hr className={"mt-2 mb-4"}/>
+            <div id={"right-side-bar"} className={"flex flex-col items-center"}>
+                <div className={"flex m-2 hidden lg:block flex-col w-[400px] items-start rounded-2xl justify-between p-8 overflow-hidden flex-col text-gray-800 border"}>
+                    <span className={"font-bold text-lg"}>Stats</span><hr className={"mt-2 mb-4"}/>
 
-                <div className={"flex items-center py-2 justify-between"}>
-                    <span className={"text-md"}>Total Systems</span>
-                    <span className={"font-bold text-xl font-monospace"}>{systems.length.toString().padStart(2, '0')}</span>
-                </div>
-                <div className={"py-2"}>
-                    <div className={"flex items-center justify-between"}>
-                        <span className={"text-md"}>Active Systems</span>
-                        <span className={"font-bold text-green-600 text-xl"}>{active_systems.size.toString().padStart(2, '0')}</span>
+                    <div className={"flex items-center py-2 justify-between"}>
+                        <span className={"text-md"}>Total Systems</span>
+                        <span className={"font-bold text-xl font-monospace"}>{systems.length.toString().padStart(2, '0')}</span>
                     </div>
-                    <progress value={active_systems.size} max={systems.length} className={"w-full h-[4px] my-2"} />
+                    <div className={"py-2"}>
+                        <div className={"flex items-center justify-between"}>
+                            <span className={"text-md"}>Active Systems</span>
+                            <span className={"font-bold text-green-600 text-xl"}>{active_systems.size.toString().padStart(2, '0')}</span>
+                        </div>
+                        <progress value={active_systems.size} max={systems.length} className={"w-full h-[4px] my-2"} />
+                    </div>
+                </div>
+                <div className={"flex m-2 hidden lg:block flex-col w-[400px] items-start rounded-2xl justify-between p-8 overflow-hidden flex-col text-gray-800 border"}>
+                    <span className={"font-bold text-lg"}>Alerts</span><hr className={"mt-2 mb-4"}/>
+                    <p className={"sec-text text-sm"}>Nothing yet</p>
                 </div>
             </div>
         </div>

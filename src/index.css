@@ -69,6 +69,10 @@ html {
 
 @media screen and (min-width: 1024px) {
     #web {
+        /*
+            Image by liuzishan on Freepik
+            https://www.freepik.com/free-vector/3d-earth-graphic-symbolizing-global-trade-illustration_14803715.htm#query=server%20background&position=33&from_view=keyword
+        */
         background-image: url("/src/img/bgImage.webp");
         background-size: cover;
         background-position: bottom;

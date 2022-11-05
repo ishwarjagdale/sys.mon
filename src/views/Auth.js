@@ -3,7 +3,6 @@ import Button from "../components/Button";
 import {Authentication} from "../api/authentication";
 import {notify} from "../components/notifier";
 import {useParams} from "react-router-dom";
-import heroImage from "../img/2794209.png";
 
 
 class Auth extends React.Component {
