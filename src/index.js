@@ -10,6 +10,8 @@ import Oops from "./views/oops";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Home from "./views/Home";
 import Auth from "./views/Auth";
+import DashLayout from "./views/Dashboard/DashLayout";
+import SystemPage from "./views/Dashboard/SystemPage";
 
 const router = createBrowserRouter([
     {
@@ -39,19 +41,31 @@ const router = createBrowserRouter([
                 path: '/verification',
                 element: <Auth page={4}/>
             }
-        ]
+        ],
+        errorElement: <Oops/>
     }, {
         path: "/oops",
-        element: <Oops/>
+        element: <Oops/>,
+        errorElement: <Oops/>
     }, {
-        path: "/dashboard",
-        element: <Dashboard/>
+        element: <DashLayout/>,
+        children: [
+            {
+                path: "/dashboard",
+                element: <Dashboard/>,
+                errorElement: <Oops/>
+            }, {
+                path: "/dashboard/:system_id",
+                element: <SystemPage/>,
+                errorElement: <Oops/>
+            }
+        ]
     }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router} errorElement={<Oops/>}/>
+        <RouterProvider router={router}/>
     </React.StrictMode>
 );

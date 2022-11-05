@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import {Authentication} from "../api/authentication";
 import {notify} from "../components/notifier";
 import {useParams} from "react-router-dom";
+import heroImage from "../img/2794209.png";
 
 
 class Auth extends React.Component {
@@ -209,7 +210,7 @@ class Auth extends React.Component {
 
         return (
             <>
-                <form id={"hero-form"} className={"flex-1 p-6 rounded flex-col"} onSubmit={this.handleSubmit}>
+                <form id={"hero-form"} className={"flex-1 w-full p-6 rounded flex-col"} onSubmit={this.handleSubmit}>
                     <div className={"flex items-center"}>
                         <span onClick={() => window.history.back()} className={"fas fa-arrow-left mr-2 cursor-pointer"}/>
                         <span className={"font-bold text-lg text-gray-500 block"}>
@@ -239,6 +240,7 @@ class Auth extends React.Component {
                         <PageLoader/>
                     </div>
                 </form>
+                <img id={"heroImage"} src={heroImage} className={"hidden lg:block md:max-w-[50%] px-4"} alt={"process"} title={"Designed by slidesgo / Freepik"}/>
             </>
         )
     }

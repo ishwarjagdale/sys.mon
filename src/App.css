@@ -1,11 +1,5 @@
 #hero-section h1 {
-    line-height: 90px;
-}
-
-@media screen and (max-width: 1278px) {
-    #hero-section h1 {
-        line-height: 52px;
-    }
+    line-height: 1.2;
 }
 
 #heroImage {
