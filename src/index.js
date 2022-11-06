@@ -55,7 +55,7 @@ const router = createBrowserRouter([
                 element: <Dashboard/>,
                 errorElement: <Oops/>
             }, {
-                path: "/dashboard/:system_id",
+                path: "/dashboard/system/:system_id",
                 element: <SystemPage/>,
                 errorElement: <Oops/>
             }

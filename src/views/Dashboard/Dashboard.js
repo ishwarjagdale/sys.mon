@@ -18,10 +18,10 @@ export default function Dashboard() {
                 document.getElementById("side-bar").classList.toggle("hidden");
                 document.getElementById("side-bar").classList.toggle("short-side");
             }}/>
-            <div className={"items-center hidden lg:flex w-[300px] overflow-hidden justify-between"}>
-                <i className="fas fa-bell mr-16"/>
+            <div className={"items-center hidden lg:flex overflow-hidden justify-between"}>
+                {/*<i className="fas fa-bell mr-16"/>*/}
                 <div className={"flex items-center "}>
-                    <span className={"px-2 font-bold"}>{user.name}</span>
+                    <span className={"px-2 font-bold"}>{user.email}</span>
                     <i className="fas fa-circle-user text-xl py-4"/>
                 </div>
             </div>
@@ -60,6 +60,10 @@ export default function Dashboard() {
                 </div>
                 <div className={"flex m-2 hidden lg:block flex-col w-[400px] items-start rounded-2xl justify-between p-8 overflow-hidden flex-col text-gray-800 border"}>
                     <span className={"font-bold text-lg"}>Alerts</span><hr className={"mt-2 mb-4"}/>
+                    <p className={"sec-text text-sm"}>Nothing yet</p>
+                </div>
+                <div className={"flex m-2 hidden lg:block flex-col w-[400px] items-start rounded-2xl justify-between p-8 overflow-hidden flex-col text-gray-800 border"}>
+                    <span className={"font-bold text-lg"}><i className={"fab fa-github mr-2"}/>Recent Changes</span><hr className={"mt-2 mb-4"}/>
                     <p className={"sec-text text-sm"}>Nothing yet</p>
                 </div>
             </div>
