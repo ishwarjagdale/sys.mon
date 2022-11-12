@@ -16,8 +16,8 @@ class SystemPage extends React.Component {
     }
 
     createConnection() {
-        if(this.state.system.enable_mon) {
-            this.conn = new WebSocket(`ws://${this.state.system.ip_addr}`);
+        if(this.state.system?.enable_mon) {
+            this.conn = new WebSocket(`wss://${this.state.system.ip_addr}`);
             this.conn.onopen = () => {
                 this.setState({
                     status: 'online'
