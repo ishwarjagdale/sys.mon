@@ -21,6 +21,12 @@ class Sidebar extends React.Component {
         })
     }
 
+    componentDidMount() {
+        let name = window.location.pathname.match(/^\/dashboard\/?(?<name>\w+)\/?/)?.groups.name;
+        document.querySelector(`li[class=active]`)?.classList.remove('active');
+        document.querySelector(`li[aria-label=${name || 'dashboard'}]`)?.classList.add('active');
+    }
+
 
     render() {
         return <div id={"side-bar"}
@@ -33,17 +39,23 @@ class Sidebar extends React.Component {
             </div>
             <hr className={"border-1 w-4"}/>
             <ul className={"flex flex-col w-full items-start mt-20 mb-auto m-0"}>
-                <li className={"active"}>
-                    <i className={"fas fa-home"}/>
-                    <span>Dashboard</span>
+                <li aria-label={'dashboard'}>
+                    <a href={"/dashboard"}>
+                        <i className={"fas fa-home"}/>
+                        <span>Dashboard</span>
+                    </a>
                 </li>
-                <li>
-                    <i className={"fas fa-line-chart"}/>
-                    <span>Performance</span>
+                <li aria-label={'performance'}>
+                    <a href={"/dashboard/performance"}>
+                        <i className={"fas fa-line-chart"}/>
+                        <span>Performance</span>
+                    </a>
                 </li>
-                <li>
-                    <i className={"fas fa-file-lines"}/>
-                    <span>Activity Logs</span>
+                <li aria-label={'activity'}>
+                    <a href={"/dashboard/activity"}>
+                        <i className={"fas fa-file-lines"}/>
+                        <span>Activity Logs</span>
+                    </a>
                 </li>
             </ul>
             <hr className={"border-1 w-4"}/>

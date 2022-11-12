@@ -41,12 +41,11 @@ display: none;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    cursor: pointer;
 }
 #side-bar ul > li:hover {
     background: #e5e7eb;
 }
-#side-bar ul > li > i {
+#side-bar ul > li i {
     padding: 1.5rem 0;
     width: 18px;
     text-align: center;

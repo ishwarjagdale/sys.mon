@@ -12,6 +12,7 @@ import Home from "./views/Home";
 import Auth from "./views/Auth";
 import DashLayout from "./views/Dashboard/DashLayout";
 import SystemPage from "./views/Dashboard/SystemPage";
+import PerformancePage from "./views/Dashboard/PerformancePage";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +58,14 @@ const router = createBrowserRouter([
             }, {
                 path: "/dashboard/system/:system_id",
                 element: <SystemPage/>,
+                errorElement: <Oops/>
+            }, {
+                path: "/dashboard/performance",
+                element: <PerformancePage/>,
+                errorElement: <Oops/>
+            }, {
+                path: "/dashboard/activity",
+                element: <PerformancePage/>,
                 errorElement: <Oops/>
             }
         ]
