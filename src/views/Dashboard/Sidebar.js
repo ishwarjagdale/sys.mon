@@ -24,13 +24,18 @@ class Sidebar extends React.Component {
     componentDidMount() {
         let name = window.location.pathname.match(/^\/dashboard\/?(?<name>\w+)\/?/)?.groups.name;
         document.querySelector(`li[class=active]`)?.classList.remove('active');
-        document.querySelector(`li[aria-label=${name || 'dashboard'}]`)?.classList.add('active');
+        let element = document.querySelector(`li[aria-label=${name || 'dashboard'}]`);
+        if(element) {
+            element.classList.add('active');
+        } else {
+            document.querySelector(`li[aria-label=dashboard]`).classList.add('active');
+        }
     }
 
 
     render() {
         return <div id={"side-bar"}
-                    className={"flex hidden md:flex flex-col w-full lg:w-[350px] items-start justify-between m-2 rounded-xl py-5 lg:py-8 overflow-hidden flex-col lg:pb-12 border text-gray-800"}>
+                    className={"flex hidden md:flex flex-col w-full md:max-w-[350px] items-start justify-between m-2 rounded-xl py-5 lg:py-8 overflow-hidden flex-col lg:pb-12 border text-gray-800"}>
             <div className={"flex items-center justify-start"}>
                 <a href={"/dashboard"}>
                     <i className="fas fa-server py-6"/>

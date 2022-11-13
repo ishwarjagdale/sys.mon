@@ -81,3 +81,7 @@ display: none;
 #systems span {
     min-width: 64px;
 }
+
+.fa-windows {
+    color: dodgerblue!important;
+}

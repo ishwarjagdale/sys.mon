@@ -110,7 +110,7 @@ input:-webkit-autofill:active{
     -webkit-text-fill-color: white !important;
 }
 
-.dark div {
+.dark div, .dark ul {
     border-color: #21262d;
 }
 .dark #dashboard span, .dark #dashboard i, .dark #dashboard a {
@@ -149,4 +149,19 @@ input:-webkit-autofill:active{
     .dark #side-menu {
         background-color: transparent;
     }
+}
+.tabs li {
+    padding: 1rem;
+    cursor: pointer;
+}
+.tabs li, .tabs li > i {
+    color: #9ca3af;
+}
+
+.tabs i {
+    margin-right: 0.5rem;
+}
+.active-tab {
+    color: ghostwhite!important;
+    border-bottom: 2px solid ghostwhite;
 }
