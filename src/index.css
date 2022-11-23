@@ -9,6 +9,7 @@
 body {
     width: 100vw;
     min-height: 100vh;
+    background: #0d1117;
     overflow-x: hidden;
 /*    background: url("img/possibility.webp");*/
 /*    color: white;*/

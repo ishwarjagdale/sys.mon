@@ -64,11 +64,10 @@
     color: white;
 }
 .dark #navbar {
-    background-color: #161b22;
+    background: linear-gradient(180deg, rgba(0,0,0,0.8), transparent)
 }
-
-.dark #navbar button {
-    border: none;
+.primary-btn {
+    background: mediumseagreen;
 }
 .dark #footer {
     color: #9ca3af;
@@ -77,7 +76,6 @@
     color: slategray;
 }
 .dark button {
-    background-color: mediumseagreen;
     color: whitesmoke;
 }
 .dark button:hover {
@@ -86,6 +84,11 @@
 .dark .sec-btn {
     background-color: #0d1117;
     color: ghostwhite;
+}
+.dark .danger-btn {
+    padding: 12px 16px;
+    border: 2px solid #da3633;
+    background: transparent;
 }
 .dark .sec-text {
     color: #9ca3af;

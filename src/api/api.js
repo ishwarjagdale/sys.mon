@@ -10,4 +10,15 @@ async function GetSystems(id=null) {
         return await axios.get(API + 'api/system');
 }
 
-export {GetSystems};
+async function UpdateSystem(id, payload) {
+    return await axios.put(API + 'api/system', {
+        sys_id: id,
+        payload: payload
+    });
+}
+
+async function DeleteSystem(id) {
+    return await axios.delete(API + `api/system?id=${id}`);
+}
+
+export {GetSystems, UpdateSystem, DeleteSystem};

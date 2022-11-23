@@ -14,7 +14,7 @@ function Home() {
                     even from remote location
                 </p>
                 <div className={"mt-2 lg:mt-6 lg:flex"}>
-                    <a href={"/get-started"}><Button children={"Get Started"} fill={'black'} border={2} classList={"w-full lg:w-fit lg:mr-1"} /></a>
+                    <a href={"/get-started"}><Button children={"Get Started"} fill={'black'} border={2} classList={"w-full primary-btn lg:w-fit lg:mr-1"} /></a>
                     <Button children={"Watch Demo"} classList={"hidden sec-btn lg:block font-bold mx-1 hover:bg-gray-200"}/>
                 </div>
                 <div className={"flex-col mt-2 lg:mt-12 md:mt-[40px] flex items-center lg:items-start mx-1 text-lg"}>

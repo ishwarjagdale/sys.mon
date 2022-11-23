@@ -154,7 +154,7 @@ class Auth extends React.Component {
                         <span className={"fas fa-spinner animate-spin text-white"}/>
                     </Button>
                     :
-                    <Button type={"submit"} fill={'black'} border={2} classList={'py-3 mt-4 w-full text-sm'}
+                    <Button type={"submit"} fill={'black'} border={2} classList={'py-3 primary-btn mt-4 w-full text-sm'}
                             disable={this.state.loading}>{buttonType}
                     </Button>
         }

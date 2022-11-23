@@ -23,7 +23,7 @@ class SystemCard extends React.Component {
     }
 
     createConnection() {
-        if (this.props.data && this.props.data.enable_mon) {
+        if (this.props.data && this.props.data.enable_mon && this.props.data.ip_addr) {
             this.conn = new WebSocket(`wss://${this.props.data.ip_addr}/`);
             this.conn.onopen = () => {
                 this.setState({active: true});
