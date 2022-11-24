@@ -1,6 +1,5 @@
 #dashboard {
     min-height: 100vh;
-    /*background: #e4e4e4;*/
 }
 
 
@@ -21,6 +20,9 @@
 
 
 #side-bar {
+    height: calc(100vh - 1rem);
+    position: sticky;
+    top: 0.5rem;
     transition: all 0.3s ease-in;
 }
 #side-bar span {
@@ -56,10 +58,6 @@ display: none;
         position: fixed;
         width: calc(100vw - 1rem);
         height: calc(100vh - 1rem);
-        /*box-sizing: content-box;*/
-        /*position: fixed;*/
-        /*height: 100vh;*/
-        /*margin: 0.5rem;*/
     }
 
     #side-bar {
@@ -70,12 +68,8 @@ display: none;
         width: calc(100vw - 1rem);
         height: calc(100vh - 1rem);
         margin: 0.5rem;
-        /*box-shadow: 0 0 10px 0 #e4e4e4;*/
+        top: 0;
     }
-}
-
-#content {
-    /*background: url("https://cdn.dribbble.com/users/683081/screenshots/2728654/media/7bb2b47d0574d39b20354620e4fa50c8.png") center no-repeat;*/
 }
 
 #systems span {
