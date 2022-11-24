@@ -12,7 +12,7 @@ class SystemPage extends React.Component {
         this.state = {
             data: false,
             status: 'connecting...',
-            activeTab: 4
+            activeTab: 0
         };
 
         this.createConnection = this.createConnection.bind(this);
@@ -25,6 +25,7 @@ class SystemPage extends React.Component {
         if(this.state.system?.enable_mon) {
             this.conn = new WebSocket(`wss://${this.state.system.ip_addr}`);
             this.conn.onopen = () => {
+                this.conn.send('spec');
                 this.setState({
                     status: 'online'
                 })
@@ -32,6 +33,12 @@ class SystemPage extends React.Component {
             this.conn.onclose = () => {
                 this.setState({
                     status: 'offline'
+                })
+            }
+            this.conn.onmessage = (m) => {
+                console.log(JSON.parse(m.data));
+                this.setState({
+                    spec: JSON.parse(m.data)
                 })
             }
         }
@@ -106,6 +113,30 @@ class SystemPage extends React.Component {
 
     render() {
 
+        const RenderSpecs = ({spec}) => {
+            return Object.keys(spec).map((k) => {
+                if(spec[k] instanceof Object) {
+                    return <>
+                        <span className={"my-4 pb-2 border-b"}>{k}</span>
+                        {
+                            <RenderSpecs spec={spec[k]}/>
+                        }
+                    </>
+                }
+                return <div className={"flex py-2 lg:items-center justify-between"}>
+                    <span className={"opacity-60 sec-text mr-4"}>{k}:</span>
+                    <span className={"sec-text"}>{spec[k]}</span>
+                </div>
+            })
+        }
+
+        const Specifications = () => {
+            if(this.conn && this.state.spec) {
+                return <RenderSpecs spec={this.state.spec} />
+            }
+            return <span className={"opacity-60"}><i className={"fas fa-exclamation-triangle mr-2"}/>Requires system to be online</span>
+        }
+
         const Settings = () => <>
             <div className={"flex flex-col lg:flex-row py-4 lg:items-center justify-between"}>
                 <div className={"flex flex-col mr-4"}>
@@ -179,9 +210,8 @@ class SystemPage extends React.Component {
                             <li onClick={(e) => this.handleTab(e, 4)} className={this.state.activeTab === 4 ? "active-tab": undefined}><i className={"fas fa-gear"}/>Settings</li>
                         </ul>
                         <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}>
-                            {
-                                this.state.activeTab === 4 && <Settings/>
-                            }
+                            {this.state.activeTab === 0 && <Specifications/>}
+                            {this.state.activeTab === 4 && <Settings/>}
                         </div>
                     </div>
                 </div>
