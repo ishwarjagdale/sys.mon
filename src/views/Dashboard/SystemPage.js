@@ -4,11 +4,20 @@ import {useParams} from "react-router-dom";
 import Button from "../../components/Button";
 import {notify} from "../../components/notifier";
 
+import PerformanceGraphs from "./PerformanceGraphs";
+
 class SystemPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.conn = null;
+        this.tabs = {
+            specifications: [0, "fa-info-circle"],
+            performance: [1, "fa-line-chart"],
+            logs: [2, "fa-file-lines"],
+            rules: [3, "fa-info-circle"],
+            settings: [4, "fa-gear"]
+        }
         this.state = {
             data: false,
             status: 'connecting...',
@@ -19,10 +28,11 @@ class SystemPage extends React.Component {
         this.handleTab = this.handleTab.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.getStats = this.getStats.bind(this);
     }
 
     createConnection() {
-        if(this.state.system?.enable_mon) {
+        if(!this.conn && this.state.system?.enable_mon) {
             this.conn = new WebSocket(`wss://${this.state.system.ip_addr}`);
             this.conn.onopen = () => {
                 this.conn.send('spec');
@@ -36,23 +46,27 @@ class SystemPage extends React.Component {
                 })
             }
             this.conn.onmessage = (m) => {
-                console.log(JSON.parse(m.data));
                 this.setState({
-                    spec: JSON.parse(m.data)
+                    ...JSON.parse(m.data)
                 })
+                this.getStats();
             }
         }
 
     }
 
-    handleTab(e, index) {
+    getStats() {
+        this.conn.send("cpd");
+    }
+
+    handleTab(e, tab) {
         document.querySelector("li[class=active-tab]")?.classList.remove('active-tab');
-        if(e.target.nodeName.toLowerCase() === 'i') {
+        if(['i', 'span'].includes(e.target.nodeName.toLowerCase())) {
             e.target.parentElement.classList.add('active-tab')
         } else {
             e.target.classList.add('active-tab')
         }
-        this.setState({activeTab: index});
+        this.setState({activeTab: this.tabs[tab][0]});
     }
 
     componentDidMount() {
@@ -62,8 +76,6 @@ class SystemPage extends React.Component {
                     data: true,
                     system: res.data
                 });
-                if(res.data.enable_mon)
-                        this.createConnection();
                 console.log(this.state)
             }
         });
@@ -112,20 +124,20 @@ class SystemPage extends React.Component {
     }
 
     render() {
-
+        this.createConnection();
         const RenderSpecs = ({spec}) => {
             return Object.keys(spec).map((k) => {
                 if(spec[k] instanceof Object) {
                     return <>
-                        <span className={"my-4 pb-2 border-b"}>{k}</span>
+                        <span key={k} className={"my-4 pb-2 border-b"}>{k}</span>
                         {
                             <RenderSpecs spec={spec[k]}/>
                         }
                     </>
                 }
-                return <div className={"flex py-2 lg:items-center justify-between"}>
-                    <span className={"opacity-60 sec-text mr-4"}>{k}:</span>
-                    <span className={"sec-text"}>{spec[k]}</span>
+                return <div key={k} className={"flex py-2 lg:items-center justify-between"}>
+                    <span className={"opacity-60 text-sm lg:text-[16px] sec-text mr-4"}>{k}:</span>
+                    <span className={"sec-text text-sm lg:text-[16px] text-right"}>{spec[k]}</span>
                 </div>
             })
         }
@@ -134,13 +146,32 @@ class SystemPage extends React.Component {
             if(this.conn && this.state.spec) {
                 return <RenderSpecs spec={this.state.spec} />
             }
-            return <span className={"opacity-60"}><i className={"fas fa-exclamation-triangle mr-2"}/>Requires system to be online</span>
+            return <></>
+        }
+
+        const Performance = () => {
+            return this.state.stats ? <>
+                <div className={"flex flex-col w-full mb-4"}>
+                    <div className={"my-4 pb-2 border-b flex items-center justify-between w-full"}>
+                        <span><i className={"fas fa-microchip mx-2"}/>CPU</span>
+                        <span className={"text-sm"}>{this.state.spec && this.state.spec["Processor"]["Processor Name"]}</span>
+                    </div>
+                    <PerformanceGraphs id={'cpu-chart'} stats={this.state.stats.cpu}/>
+                </div>
+                <div className={"flex flex-col w-full mb-4"}>
+                    <div className={"my-4 pb-2 border-b flex items-center justify-between w-full"}>
+                        <span><i className={"fas fa-memory mx-2"}/>Memory</span>
+                    </div>
+                    <PerformanceGraphs id={'mem-chart'} stats={this.state.stats.mem}/>
+                </div>
+            </> : <></>
+
         }
 
         const Settings = () => <>
-            <div className={"flex flex-col lg:flex-row py-4 lg:items-center justify-between"}>
+            <div className={"flex flex-col lg:flex-row text-sm lg:text-[16px] py-4 lg:items-center justify-between"}>
                 <div className={"flex flex-col mr-4"}>
-                    <span className={"text-lg sec-text mr-4"}>Name</span>
+                    <span className={"sec-text mr-4"}>Name</span>
                     <p className={"text-sm sec-text sec-text"}>A name for the system, helpful for you to recognize.</p>
                 </div>
                 <form onSubmit={(e) => this.handleUpdate(e, 'name')} className={"form-element"}>
@@ -149,7 +180,7 @@ class SystemPage extends React.Component {
             </div>
             <div className={"flex py-4 items-center justify-between"}>
                 <div className={"flex flex-col mr-4"}>
-                    <span className={"text-lg sec-text mr-4"}>Enable Mon</span>
+                    <span className={"sec-text mr-4"}>Enable Mon</span>
                     <p className={"text-sm sec-text sec-text"}>Enable or disable Mon, Mon is an monitoring agent installed on the system.</p>
                 </div>
                 <i onClick={(e) => this.handleUpdate(e, 'enable_mon')} className={`border-2 cursor-pointer flex items-center p-1 justify-${this.state.system.enable_mon ? 'end': 'start'} rounded-full h-[30px] w-[60px]`}>
@@ -158,7 +189,7 @@ class SystemPage extends React.Component {
             </div>
             <div className={"flex py-4 items-center justify-between"}>
                 <div className={"flex flex-col mr-4"}>
-                    <span className={"text-lg sec-text mr-4"}>Email Alerts</span>
+                    <span className={"sec-text mr-4"}>Email Alerts</span>
                     <p className={"text-sm sec-text sec-text"}>Receive alerts of the system's activities on registered email address.</p>
                 </div>
                 <i onClick={(e) => this.handleUpdate(e, 'alert')} className={`border-2 cursor-pointer flex items-center p-1 justify-${this.state.system.alert ? 'end': 'start'} rounded-full h-[30px] w-[60px]`}>
@@ -166,12 +197,12 @@ class SystemPage extends React.Component {
                 </i>
             </div>
             <hr className={"border-slate-400 my-4"}/>
-            <div className={"flex py-4 items-center justify-between"}>
+            <div className={"flex flex-col lg:flex-row py-4 items-center justify-between"}>
                 <div className={"flex flex-col mr-4"}>
-                    <span className={"text-lg text-red-700 mr-4"}>Remove System</span>
+                    <span className={"text-red-700 mr-4"}>Remove System</span>
                     <p className={"text-sm sec-text sec-text"}>This will permanently remove mon and unregistered this system from your account.<br/>All the data and logs will be deleted permanently!</p>
                 </div>
-                <Button border={2} type={'button'} onclick={this.handleDelete} fill={true} classList={"danger-btn"}>
+                <Button border={2} type={'button'} onclick={this.handleDelete} fill={true} classList={"danger-btn mt-4 lg:m-0 w-full lg:w-fit"}>
                     Remove
                 </Button>
             </div>
@@ -202,15 +233,15 @@ class SystemPage extends React.Component {
                         </div>
                     </div>
                     <div className={"flex flex-col"}>
-                        <ul className={"flex tabs w-full border-b"}>
-                            <li onClick={(e) => this.handleTab(e, 0)} className={this.state.activeTab === 0 ? "active-tab": undefined}><i className={"fas fa-info-circle"}/>Specification</li>
-                            <li onClick={(e) => this.handleTab(e, 1)} className={this.state.activeTab === 1 ? "active-tab": undefined}><i className={"fas fa-line-chart"}/>Performance</li>
-                            <li onClick={(e) => this.handleTab(e, 2)} className={this.state.activeTab === 2 ? "active-tab": undefined}><i className={"fas fa-file-lines"}/>Activity Logs</li>
-                            <li onClick={(e) => this.handleTab(e, 3)} className={this.state.activeTab === 3 ? "active-tab": undefined}><i className={"fas fa-circle-exclamation"}/>Rules</li>
-                            <li onClick={(e) => this.handleTab(e, 4)} className={this.state.activeTab === 4 ? "active-tab": undefined}><i className={"fas fa-gear"}/>Settings</li>
+                        <ul className={"flex tabs w-full justify-evenly mb-4 lg:mb-0 lg:justify-start border-b"}>
+                            {
+                                Object.keys(this.tabs).map((k) =>
+                                    <li onClick={(e) => this.handleTab(e, k)} className={this.state.activeTab === this.tabs[k][0] ? "active-tab": undefined}><i className={`fas ${this.tabs[k][1]}`}/><span className={'hidden capitalize lg:inline-block'}>{k}</span></li>)
+                            }
                         </ul>
                         <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}>
                             {this.state.activeTab === 0 && <Specifications/>}
+                            {this.state.activeTab === 1 && <Performance/>}
                             {this.state.activeTab === 4 && <Settings/>}
                         </div>
                     </div>

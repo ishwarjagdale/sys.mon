@@ -152,6 +152,9 @@ input:-webkit-autofill:active{
     .dark #side-menu {
         background-color: transparent;
     }
+    .tabs i {
+        margin-right: 0.5rem;
+    }
 }
 .tabs li {
     padding: 1rem;
@@ -159,10 +162,6 @@ input:-webkit-autofill:active{
 }
 .tabs li, .tabs li > i {
     color: #9ca3af;
-}
-
-.tabs i {
-    margin-right: 0.5rem;
 }
 .active-tab {
     color: ghostwhite!important;

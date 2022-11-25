@@ -32,7 +32,7 @@ class SystemCard extends React.Component {
             }
             this.conn.onmessage = (event) => {
                 // console.log(event.data);
-                this.setState({stats: {...this.state.stats, ...JSON.parse(event.data)}});
+                this.setState({...JSON.parse(event.data)});
                 this.getStats();
             }
             this.conn.onclose = (event) => {

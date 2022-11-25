@@ -75,3 +75,11 @@ display: none;
 #systems span {
     min-width: 64px;
 }
+
+canvas {
+    background-image:
+            linear-gradient(to right, #21262d 1px, transparent 1px),
+            linear-gradient(to bottom, #21262d 1px, transparent 1px);
+    border: 2px solid #21262d;
+    background-size: 25px 25px;
+}
