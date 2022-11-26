@@ -20,7 +20,7 @@ class Logs extends React.Component {
 
         return this.state.logs && this.state.logs.length ?
             <>
-                <table className={"m-4 border-2"} >
+                <table className={"lg:m-4 border-2"} >
                     <thead className={"m-2"}>
                     <tr>
                         <th>Activity Type</th>
