@@ -1,9 +1,10 @@
-import React, {useRef} from "react";
+import React from "react";
 import {Line} from "react-chartjs-2";
 import Chart from 'chart.js/auto';
 
 let arr = {
-
+    // cpu: [...]
+    // mem: [...]
 }
 
 class PerformanceGraphs extends React.Component {
@@ -62,7 +63,7 @@ class PerformanceGraphs extends React.Component {
                     max: Math.min(Math.max(...arr[this.props.id]) + 10, 100),
                     min: Math.max(Math.min(...arr[this.props.id]) - 10, 0),
                     ticks: {
-                        stepSize: 20
+                        stepSize: 5
                     }
                 }
             }

@@ -113,8 +113,19 @@ input:-webkit-autofill:active{
     -webkit-text-fill-color: white !important;
 }
 
-.dark div, .dark ul {
+.dark div, .dark ul, .dark table {
     border-color: #21262d;
+}
+thead {
+    opacity: 0.6;
+}
+tr {
+    border-bottom: 1px solid #21262d;
+}
+td, th {
+    color: #c9d1d9;
+    text-align: center;
+    padding: 1.5rem;
 }
 .dark #dashboard span, .dark #dashboard i, .dark #dashboard a {
     color: #c9d1d9;

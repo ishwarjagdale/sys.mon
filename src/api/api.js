@@ -21,4 +21,10 @@ async function DeleteSystem(id) {
     return await axios.delete(API + `api/system?id=${id}`);
 }
 
-export {GetSystems, UpdateSystem, DeleteSystem};
+async function GetLogs(id=null) {
+    if(id)
+        return await axios.get(API + `api/system/activity?id=${id}`);
+    return await axios.get(API + `api/system/activity`);
+
+}
+export {GetSystems, UpdateSystem, DeleteSystem, GetLogs};

@@ -5,6 +5,7 @@ import Button from "../../components/Button";
 import {notify} from "../../components/notifier";
 
 import PerformanceGraphs from "./PerformanceGraphs";
+import Logs from "./Logs";
 
 class SystemPage extends React.Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class SystemPage extends React.Component {
         this.state = {
             data: false,
             status: 'connecting...',
-            activeTab: 0
+            activeTab: 2
         };
 
         this.createConnection = this.createConnection.bind(this);
@@ -144,13 +145,13 @@ class SystemPage extends React.Component {
 
         const Specifications = () => {
             if(this.conn && this.state.spec) {
-                return <RenderSpecs spec={this.state.spec} />
+                return <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}><RenderSpecs spec={this.state.spec} /></div>
             }
             return <></>
         }
 
         const Performance = () => {
-            return this.state.stats ? <>
+            return this.state.stats ? <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}>
                 <div className={"flex flex-col w-full mb-4"}>
                     <div className={"my-4 pb-2 border-b flex items-center justify-between w-full"}>
                         <span><i className={"fas fa-microchip mx-2"}/>CPU</span>
@@ -164,15 +165,15 @@ class SystemPage extends React.Component {
                     </div>
                     <PerformanceGraphs id={'mem-chart'} stats={this.state.stats.mem}/>
                 </div>
-            </> : <></>
+            </div> : <></>
 
         }
 
-        const Settings = () => <>
+        const Settings = () => <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}>
             <div className={"flex flex-col lg:flex-row text-sm lg:text-[16px] py-4 lg:items-center justify-between"}>
                 <div className={"flex flex-col mr-4"}>
                     <span className={"sec-text mr-4"}>Name</span>
-                    <p className={"text-sm sec-text sec-text"}>A name for the system, helpful for you to recognize.</p>
+                    <p className={"text-[12px] lg:text-sm sec-text"}>A name for the system, helpful for you to recognize.</p>
                 </div>
                 <form onSubmit={(e) => this.handleUpdate(e, 'name')} className={"form-element"}>
                     <input type={"text"} name={'name'} placeholder={"Name"} defaultValue={this.state.system.name} className={"sec-text"}/>
@@ -181,18 +182,18 @@ class SystemPage extends React.Component {
             <div className={"flex py-4 items-center justify-between"}>
                 <div className={"flex flex-col mr-4"}>
                     <span className={"sec-text mr-4"}>Enable Mon</span>
-                    <p className={"text-sm sec-text sec-text"}>Enable or disable Mon, Mon is an monitoring agent installed on the system.</p>
+                    <p className={"text-[12px] lg:text-sm sec-text"}>Enable or disable Mon, Mon is an monitoring agent installed on the system.</p>
                 </div>
-                <i onClick={(e) => this.handleUpdate(e, 'enable_mon')} className={`border-2 cursor-pointer flex items-center p-1 justify-${this.state.system.enable_mon ? 'end': 'start'} rounded-full h-[30px] w-[60px]`}>
+                <i onClick={(e) => this.handleUpdate(e, 'enable_mon')} className={`border-2 min-w-[50px] cursor-pointer flex items-center p-1 justify-${this.state.system.enable_mon ? 'end': 'start'} rounded-full h-[30px] w-[60px]`}>
                     <i className={`rounded-full aspect-square h-full w-auto ${this.state.system.enable_mon ? 'bg-green-400': 'bg-red-400'}`}></i>
                 </i>
             </div>
             <div className={"flex py-4 items-center justify-between"}>
                 <div className={"flex flex-col mr-4"}>
                     <span className={"sec-text mr-4"}>Email Alerts</span>
-                    <p className={"text-sm sec-text sec-text"}>Receive alerts of the system's activities on registered email address.</p>
+                    <p className={"text-[12px] lg:text-sm sec-text"}>Receive alerts of the system's activities on registered email address.</p>
                 </div>
-                <i onClick={(e) => this.handleUpdate(e, 'alert')} className={`border-2 cursor-pointer flex items-center p-1 justify-${this.state.system.alert ? 'end': 'start'} rounded-full h-[30px] w-[60px]`}>
+                <i onClick={(e) => this.handleUpdate(e, 'alert')} className={`border-2 min-w-[50px] cursor-pointer flex items-center p-1 justify-${this.state.system.alert ? 'end': 'start'} rounded-full h-[30px] w-[60px]`}>
                     <i className={`rounded-full aspect-square h-full w-auto ${this.state.system.alert ? 'bg-green-400': 'bg-red-400'}`}></i>
                 </i>
             </div>
@@ -200,13 +201,13 @@ class SystemPage extends React.Component {
             <div className={"flex flex-col lg:flex-row py-4 items-center justify-between"}>
                 <div className={"flex flex-col mr-4"}>
                     <span className={"text-red-700 mr-4"}>Remove System</span>
-                    <p className={"text-sm sec-text sec-text"}>This will permanently remove mon and unregistered this system from your account.<br/>All the data and logs will be deleted permanently!</p>
+                    <p className={"text-[12px] lg:text-sm sec-text"}>This will permanently remove mon and unregistered this system from your account.<br/>All the data and logs will be deleted permanently!</p>
                 </div>
                 <Button border={2} type={'button'} onclick={this.handleDelete} fill={true} classList={"danger-btn mt-4 lg:m-0 w-full lg:w-fit"}>
                     Remove
                 </Button>
             </div>
-        </>
+        </div>
 
         return (
             this.state.data ?
@@ -239,11 +240,13 @@ class SystemPage extends React.Component {
                                     <li onClick={(e) => this.handleTab(e, k)} className={this.state.activeTab === this.tabs[k][0] ? "active-tab": undefined}><i className={`fas ${this.tabs[k][1]}`}/><span className={'hidden capitalize lg:inline-block'}>{k}</span></li>)
                             }
                         </ul>
-                        <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}>
+
                             {this.state.activeTab === 0 && <Specifications/>}
                             {this.state.activeTab === 1 && <Performance/>}
+                            {this.state.activeTab === 2 && <Logs id={this.state.system.sys_id}/>}
+                            {/*{}*/}
                             {this.state.activeTab === 4 && <Settings/>}
-                        </div>
+
                     </div>
                 </div>
                 :
