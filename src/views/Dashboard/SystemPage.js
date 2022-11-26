@@ -91,7 +91,7 @@ class SystemPage extends React.Component {
                 break;
             }
             case 'alert': {
-                payload = {alert: false};
+                payload = {alert: !this.state.system.alert};
                 break;
             }
             case 'name': {
@@ -211,7 +211,7 @@ class SystemPage extends React.Component {
 
         return (
             this.state.data ?
-                <div className={"flex flex-col h-full m-2 py-6 px-4 lg:p-8 flex-1"}>
+                <div className={"flex flex-col h-full lg:m-2 py-6 px-4 lg:p-8 flex-1"}>
                     <div id={"top-bar"} className={" pb-0 lg:pb-0 flex items-center flex-1 justify-between"}>
                         <div className={"flex items-center m-2 w-full border-b"}>
                             <span onClick={() => window.history.back()} className={"fas fa-arrow-left mr-2 py-4 cursor-pointer"}/>
