@@ -96,10 +96,14 @@
 .dark #side-menu {
     background-color: #161b22;
 }
-.dark input {
+.dark input, .dark select {
     color: white;
     background-color: #1f1f1f;
     border: 0;
+}
+.dark select {
+    border-right: 0.5rem solid #1f1f1f;
+    color: #c9d1d9;
 }
 .dark hr, .dark span {
     border-color: slategray;

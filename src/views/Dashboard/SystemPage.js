@@ -1,11 +1,11 @@
 import React from "react";
-import {DeleteSystem, GetSystems, UpdateSystem} from "../../api/api";
+import {GetSystems} from "../../api/api";
 import {useParams} from "react-router-dom";
-import Button from "../../components/Button";
-import {notify} from "../../components/notifier";
 
-import PerformanceGraphs from "./PerformanceGraphs";
-import Logs from "./Logs";
+import Graph from "./Graph";
+import SystemLogs from "./SystemLogs";
+import SystemSettings from "./SystemSettings";
+import SystemRules from "./SystemRules";
 
 class SystemPage extends React.Component {
     constructor(props) {
@@ -22,13 +22,12 @@ class SystemPage extends React.Component {
         this.state = {
             data: false,
             status: 'connecting...',
-            activeTab: 2
+            activeTab: 3
         };
 
         this.createConnection = this.createConnection.bind(this);
         this.handleTab = this.handleTab.bind(this);
-        this.handleUpdate = this.handleUpdate.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
+
         this.getStats = this.getStats.bind(this);
     }
 
@@ -82,48 +81,6 @@ class SystemPage extends React.Component {
         });
     }
 
-    handleUpdate(e, attr) {
-        e.preventDefault();
-        let payload = null;
-        switch (attr) {
-            case 'enable_mon': {
-                payload = {enable_mon: !this.state.system.enable_mon};
-                break;
-            }
-            case 'alert': {
-                payload = {alert: !this.state.system.alert};
-                break;
-            }
-            case 'name': {
-                if(e.target.name.value !== this.state.system.name)
-                    payload = {name: e.target.name.value};
-                break;
-            }
-            default: {}
-        }
-        if(payload)
-        UpdateSystem(this.state.system.sys_id, payload).then((res) => {
-            if(res.status === 200) {
-                this.setState({system: res.data});
-                notify('Changes saved!', 'success');
-            } else {
-                notify(`${res.status} Changes failed!`, 'failed');
-            }
-        })
-    }
-
-    handleDelete() {
-        if(window.confirm("Are you sure?"))
-        DeleteSystem(this.state.system.sys_id).then((res) => {
-            if(res.status === 200) {
-                notify('System removed successfully!', 'success');
-                window.location.href = '/dashboard';
-            } else {
-                notify(`${res.status} System removal failed!`, 'failed');
-            }
-        })
-    }
-
     render() {
         this.createConnection();
         const RenderSpecs = ({spec}) => {
@@ -157,57 +114,17 @@ class SystemPage extends React.Component {
                         <span><i className={"fas fa-microchip mx-2"}/>CPU</span>
                         <span className={"text-sm"}>{this.state.spec && this.state.spec["Processor"]["Processor Name"]}</span>
                     </div>
-                    <PerformanceGraphs id={'cpu-chart'} stats={this.state.stats.cpu}/>
+                    <Graph id={'cpu-chart'} stats={this.state.stats.cpu}/>
                 </div>
                 <div className={"flex flex-col w-full mb-4"}>
                     <div className={"my-4 pb-2 border-b flex items-center justify-between w-full"}>
                         <span><i className={"fas fa-memory mx-2"}/>Memory</span>
                     </div>
-                    <PerformanceGraphs id={'mem-chart'} stats={this.state.stats.mem}/>
+                    <Graph id={'mem-chart'} stats={this.state.stats.mem}/>
                 </div>
             </div> : <></>
 
         }
-
-        const Settings = () => <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}>
-            <div className={"flex flex-col lg:flex-row text-sm lg:text-[16px] py-4 lg:items-center justify-between"}>
-                <div className={"flex flex-col mr-4"}>
-                    <span className={"sec-text mr-4"}>Name</span>
-                    <p className={"text-[12px] lg:text-sm sec-text"}>A name for the system, helpful for you to recognize.</p>
-                </div>
-                <form onSubmit={(e) => this.handleUpdate(e, 'name')} className={"form-element"}>
-                    <input type={"text"} name={'name'} placeholder={"Name"} defaultValue={this.state.system.name} className={"sec-text"}/>
-                </form>
-            </div>
-            <div className={"flex py-4 items-center justify-between"}>
-                <div className={"flex flex-col mr-4"}>
-                    <span className={"sec-text mr-4"}>Enable Mon</span>
-                    <p className={"text-[12px] lg:text-sm sec-text"}>Enable or disable Mon, Mon is an monitoring agent installed on the system.</p>
-                </div>
-                <i onClick={(e) => this.handleUpdate(e, 'enable_mon')} className={`border-2 min-w-[50px] cursor-pointer flex items-center p-1 justify-${this.state.system.enable_mon ? 'end': 'start'} rounded-full h-[30px] w-[60px]`}>
-                    <i className={`rounded-full aspect-square h-full w-auto ${this.state.system.enable_mon ? 'bg-green-400': 'bg-red-400'}`}></i>
-                </i>
-            </div>
-            <div className={"flex py-4 items-center justify-between"}>
-                <div className={"flex flex-col mr-4"}>
-                    <span className={"sec-text mr-4"}>Email Alerts</span>
-                    <p className={"text-[12px] lg:text-sm sec-text"}>Receive alerts of the system's activities on registered email address.</p>
-                </div>
-                <i onClick={(e) => this.handleUpdate(e, 'alert')} className={`border-2 min-w-[50px] cursor-pointer flex items-center p-1 justify-${this.state.system.alert ? 'end': 'start'} rounded-full h-[30px] w-[60px]`}>
-                    <i className={`rounded-full aspect-square h-full w-auto ${this.state.system.alert ? 'bg-green-400': 'bg-red-400'}`}></i>
-                </i>
-            </div>
-            <hr className={"border-slate-400 my-4"}/>
-            <div className={"flex flex-col lg:flex-row py-4 items-center justify-between"}>
-                <div className={"flex flex-col mr-4"}>
-                    <span className={"text-red-700 mr-4"}>Remove System</span>
-                    <p className={"text-[12px] lg:text-sm sec-text"}>This will permanently remove mon and unregistered this system from your account.<br/>All the data and logs will be deleted permanently!</p>
-                </div>
-                <Button border={2} type={'button'} onclick={this.handleDelete} fill={true} classList={"danger-btn mt-4 lg:m-0 w-full lg:w-fit"}>
-                    Remove
-                </Button>
-            </div>
-        </div>
 
         return (
             this.state.data ?
@@ -243,9 +160,9 @@ class SystemPage extends React.Component {
 
                             {this.state.activeTab === 0 && <Specifications/>}
                             {this.state.activeTab === 1 && <Performance/>}
-                            {this.state.activeTab === 2 && <Logs id={this.state.system.sys_id}/>}
-                            {/*{}*/}
-                            {this.state.activeTab === 4 && <Settings/>}
+                            {this.state.activeTab === 2 && <SystemLogs id={this.state.system.sys_id}/>}
+                            {this.state.activeTab === 3 && <SystemRules id={this.state.system.sys_id}/>}
+                            {this.state.activeTab === 4 && <SystemSettings system={this.state.system}/>}
 
                     </div>
                 </div>

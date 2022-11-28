@@ -1,5 +1,6 @@
 import {Logout} from "../../api/authentication";
 import React from "react";
+import {Link} from "react-router-dom";
 
 
 class Sidebar extends React.Component {
@@ -37,30 +38,30 @@ class Sidebar extends React.Component {
         return <div id={"side-bar"}
                     className={"flex hidden md:flex flex-col w-full md:max-w-[350px] items-start justify-between m-2 rounded-xl py-5 lg:py-8 overflow-hidden flex-col lg:pb-12 border text-gray-800"}>
             <div className={"flex items-center justify-start"}>
-                <a href={"/dashboard"}>
+                <Link to={"/dashboard"}>
                     <i className="fas fa-server py-6"/>
                     <span className={"font-bold p-6 pl-0"}>sys.mon</span>
-                </a>
+                </Link>
             </div>
             <hr className={"border-1 w-4"}/>
             <ul className={"flex flex-col w-full items-start mt-20 mb-auto m-0"}>
                 <li aria-label={'dashboard'}>
-                    <a href={"/dashboard"}>
+                    <Link to={"/dashboard"}>
                         <i className={"fas fa-home"}/>
                         <span>Dashboard</span>
-                    </a>
+                    </Link>
                 </li>
                 <li aria-label={'performance'}>
-                    <a href={"/dashboard/performance"}>
+                    <Link to={"/dashboard/performance"}>
                         <i className={"fas fa-line-chart"}/>
                         <span>Performance</span>
-                    </a>
+                    </Link>
                 </li>
                 <li aria-label={'activity'}>
-                    <a href={"/dashboard/activity"}>
+                    <Link to={"/dashboard/activity"}>
                         <i className={"fas fa-file-lines"}/>
                         <span>Activity Logs</span>
-                    </a>
+                    </Link>
                 </li>
             </ul>
             <hr className={"border-1 w-4"}/>
@@ -73,7 +74,7 @@ class Sidebar extends React.Component {
                     <i className={"fas fa-gear"}/>
                     <span>Settings</span>
                 </li>
-                <li onClick={this.handleLogout}>
+                <li className={"cursor-pointer"} onClick={this.handleLogout}>
                     <i className={"fas fa-sign-out"}/>
                     <span>Log out</span>
                 </li>

@@ -1,5 +1,6 @@
 import {notify} from "../../components/notifier";
 import React from "react";
+import {Link} from "react-router-dom";
 
 
 class SystemCard extends React.Component {
@@ -72,7 +73,7 @@ class SystemCard extends React.Component {
                     <i onClick={this.createConnection} className={`fab fa-${this.props.data.os.toString().toLowerCase()} text-${this.state.active? "green" : "gray"}-600 cursor-pointer my-6 mx-12 text-2xl text-center`}/>
                     <div className={"flex flex-col items-start w-fit mx-4 mr-auto"}>
                         <div className={"flex items-center"}>
-                            <a className={"text-lg"} href={`/dashboard/system/${this.props.data.sys_id}`}>{this.props.data.name}</a>
+                            <Link className={"text-lg"} to={`/dashboard/system/${this.props.data.sys_id}`}>{this.props.data.name}</Link>
                         </div>
                         <span className={"text-gray-600 text-sm cursor-pointer"} onClick={(e) => {
                             navigator.clipboard.writeText(e.target.innerText);

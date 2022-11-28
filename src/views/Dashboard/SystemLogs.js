@@ -1,7 +1,7 @@
 import React from "react";
 import {GetLogs} from "../../api/api";
 
-class Logs extends React.Component {
+class SystemLogs extends React.Component {
     constructor(props) {
         super(props);
 
@@ -46,4 +46,4 @@ class Logs extends React.Component {
 
 }
 
-export default Logs;
+export default SystemLogs;

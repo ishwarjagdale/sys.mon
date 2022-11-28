@@ -7,7 +7,7 @@ let arr = {
     // mem: [...]
 }
 
-class PerformanceGraphs extends React.Component {
+class Graph extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -83,4 +83,4 @@ class PerformanceGraphs extends React.Component {
     }
 }
 
-export default PerformanceGraphs;
+export default Graph;

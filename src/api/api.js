@@ -25,6 +25,17 @@ async function GetLogs(id=null) {
     if(id)
         return await axios.get(API + `api/system/activity?id=${id}`);
     return await axios.get(API + `api/system/activity`);
-
 }
-export {GetSystems, UpdateSystem, DeleteSystem, GetLogs};
+
+async function GetRules(id) {
+    return await axios.get(API + `api/system/rules?id=${id}`);
+}
+
+async function NewRule(payload) {
+    return await axios.post(API + `api/system/rules`, payload);
+}
+
+async function DeleteRule(id, resource) {
+    return await axios.delete(API + `api/system/rules?id=${id}&resource=${resource}`);
+}
+export {GetSystems, UpdateSystem, DeleteSystem, GetLogs, GetRules, NewRule, DeleteRule};
