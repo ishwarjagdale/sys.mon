@@ -86,15 +86,15 @@ class SystemCard extends React.Component {
                     this.state.active && <div className={"flex items-center mx-auto md:mx-0 my-4"}>
                         <div className={"flex items-center mx-2 lg:mx-4 block"}>
                             <i className={"w-[18px] text-center fas fa-microchip mr-2"}/>
-                            <span className={"text-lg font-bold text-green-600"}>{this.state.stats.cpu}</span>
+                            <span className={"text-lg font-bold text-green-600"}>{this.state.stats.cpu}%</span>
                         </div>
                         <div className={"flex items-center mx-2 lg:mx-4 block"}>
                             <i className={"w-[18px] text-center fas fa-memory mr-2"}/>
-                            <span className={"text-lg font-bold text-yellow-600"}>{this.state.stats.mem}</span>
+                            <span className={"text-lg font-bold text-yellow-600"}>{this.state.stats.mem}%</span>
                         </div>
                         <div className={"flex items-center mx-2 lg:mx-4 block"}>
                             <i className={"w-[18px] text-center fas fa-database mr-2"}/>
-                            <span className={"text-lg font-bold text-red-600"}>{this.state.stats.disk}</span>
+                            <span className={"text-lg font-bold text-red-600"}>{this.state.stats.disk}%</span>
                         </div>
                     </div>
                 }

@@ -137,6 +137,9 @@ class SystemRules extends React.Component {
                                     <div className={"flex items-center"}>
                                         <i className={`text-center w-[20px] fas fa-${fontAws[r][1]} mr-2 opacity-60`}/>
                                         <span>{fontAws[r][0]}</span>
+                                        <span className={"ml-4 opacity-60 text-sm"}>
+                                        at maximum of {this.state.rules[r].max_limit}%
+                                    </span>
                                     </div>
                                     <div className={"flex items-center"}>
                                         <i onClick={this.handleDelete} id={r} className={"fas cursor-pointer fa-close text-red-600 mx-4"}/>

@@ -22,7 +22,7 @@ class SystemPage extends React.Component {
         this.state = {
             data: false,
             status: 'connecting...',
-            activeTab: 3
+            activeTab: 0
         };
 
         this.createConnection = this.createConnection.bind(this);
@@ -140,17 +140,33 @@ class SystemPage extends React.Component {
                             document.getElementById("side-bar").classList.toggle("short-side");
                         }}/>
                     </div>
-                    <div className={"flex py-8 items-center"}>
-                        <i className={`hidden lg:block fab fa-${this.state.system.os.toLowerCase()} text-9xl px-8`}/>
-                        <div className={"flex flex-col flex-1 mx-2"}>
-                            <span className={"text-2xl font-bold my-4 text-white"}>{this.state.system.name}</span>
-                            <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>IP address:</span><span>{this.state.system.ip_addr ? this.state.system.ip_addr.toString().split(":")[0] : 'null'}</span></div>
-                            <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>Operating System:</span><span>{this.state.system.os}</span></div><br/>
-                            <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>Status:</span><p onClick={this.createConnection} className={`cursor-pointer ${this.state.system.enable_mon ? 
-                                this.state.status === 'online' ? 'text-green-600' : this.state.status === 'offline' ? 'text-red-500' : 'text-gray-400' : 'text-gray-400'}`}>{this.state.system.enable_mon ? this.state.status : 'monitoring disabled'}</p></div>
+                    <div className={"flex flex-col lg:flex-row lg:items-center w-full"}>
+                        <div className={"flex py-8 items-center"}>
+                            <i className={`hidden lg:block fab fa-${this.state.system.os.toLowerCase()} text-9xl px-8`}/>
+                            <div className={"flex flex-col flex-1 mx-2"}>
+                                <span className={"text-2xl font-bold my-4 text-white"}>{this.state.system.name}</span>
+                                <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>IP address:</span><span>{this.state.system.ip_addr ? this.state.system.ip_addr.toString().split(":")[0] : 'null'}</span></div>
+                                <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>Operating System:</span><span>{this.state.system.os}</span></div><br/>
+                                <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>Status:</span><p onClick={this.createConnection} className={`cursor-pointer ${this.state.system.enable_mon ?
+                                    this.state.status === 'online' ? 'text-green-600' : this.state.status === 'offline' ? 'text-red-500' : 'text-gray-400' : 'text-gray-400'}`}>{this.state.system.enable_mon ? this.state.status : 'monitoring disabled'}</p></div>
+                            </div>
                         </div>
+                        { this.state.stats && <div className={"flex pb-8 lg:pb-0 lg:flex-col items-center lg:items-start justify-evenly lg:ml-4 lg:pl-4 lg:border-l"}>
+                            <div className={"flex items-center mx-2 lg:my-2 block"}>
+                                <i className={"w-[18px] text-center fas fa-microchip mr-2"}/>
+                                <span className={"text-lg font-bold text-green-600"}>{this.state.stats.cpu}%</span>
+                            </div>
+                            <div className={"flex items-center mx-2 lg:my-2 block"}>
+                                <i className={"w-[18px] text-center fas fa-memory mr-2"}/>
+                                <span className={"text-lg font-bold text-yellow-600"}>{this.state.stats.mem}%</span>
+                            </div>
+                            <div className={"flex items-center mx-2 lg:my-2 block"}>
+                                <i className={"w-[18px] text-center fas fa-database mr-2"}/>
+                                <span className={"text-lg font-bold text-red-600"}>{this.state.stats.disk}%</span>
+                            </div>
+                        </div>}
                     </div>
-                    <div className={"flex flex-col"}>
+                    <div className={"flex flex-col mx-2 lg:mx-0"}>
                         <ul className={"flex tabs w-full justify-evenly mb-4 lg:mb-0 lg:justify-start border-b"}>
                             {
                                 Object.keys(this.tabs).map((k) =>

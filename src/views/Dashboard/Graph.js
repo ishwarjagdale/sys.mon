@@ -23,7 +23,7 @@ class Graph extends React.Component {
         if(arr[this.props.id].length === 60) {
             arr[this.props.id].shift();
         }
-        arr[this.props.id].push(Number.parseFloat(this.props.stats?.slice(0, -1)));
+        arr[this.props.id].push(this.props.stats);
         this.chart?.update()
     }
 
