@@ -9,6 +9,7 @@ class Sidebar extends React.Component {
         this.state = {};
 
         this.handleLogout = this.handleLogout.bind(this);
+        this.changeTab = this.changeTab.bind(this);
     }
 
     handleLogout = () => {
@@ -22,19 +23,22 @@ class Sidebar extends React.Component {
         })
     }
 
-    componentDidMount() {
-        let name = window.location.pathname.match(/^\/dashboard\/?(?<name>\w+)\/?/)?.groups.name;
-        document.querySelector(`li[class=active]`)?.classList.remove('active');
-        let element = document.querySelector(`li[aria-label=${name || 'dashboard'}]`);
-        if(element) {
-            element.classList.add('active');
-        } else {
-            document.querySelector(`li[aria-label=dashboard]`).classList.add('active');
-        }
+    changeTab(e) {
+        document.querySelector("li[class=active]").classList.remove('active');
+        e.target.parentElement.classList.add('active');
     }
 
 
     render() {
+
+        const NavItem = ({label, to, children, className}) => {
+            return <li onClick={this.changeTab} aria-label={label} className={className}>
+                <Link to={to}>
+                    {children}
+                </Link>
+            </li>
+        }
+
         return <div id={"side-bar"}
                     className={"flex hidden md:flex flex-col w-full md:max-w-[350px] items-start justify-between m-2 rounded-xl py-5 lg:py-8 overflow-hidden flex-col lg:pb-12 border text-gray-800"}>
             <div className={"flex items-center justify-start"}>
@@ -45,38 +49,38 @@ class Sidebar extends React.Component {
             </div>
             <hr className={"border-1 w-4"}/>
             <ul className={"flex flex-col w-full items-start mt-20 mb-auto m-0"}>
-                <li aria-label={'dashboard'}>
-                    <Link to={"/dashboard"}>
-                        <i className={"fas fa-home"}/>
-                        <span>Dashboard</span>
-                    </Link>
-                </li>
-                <li aria-label={'performance'}>
-                    <Link to={"/dashboard/performance"}>
-                        <i className={"fas fa-line-chart"}/>
-                        <span>Performance</span>
-                    </Link>
-                </li>
-                <li aria-label={'activity'}>
-                    <Link to={"/dashboard/activity"}>
-                        <i className={"fas fa-file-lines"}/>
-                        <span>Activity Logs</span>
-                    </Link>
-                </li>
+                <NavItem className={"active"} label={'dashboard'} to={"/dashboard"}>
+                    <i className={"fas fa-home"}/>
+                    <span>Dashboard</span>
+                </NavItem>
+                <NavItem label={'performance'} to={"/dashboard/performance"}>
+                    <i className={"fas fa-line-chart"}/>
+                    <span>Performance</span>
+                </NavItem>
+                <NavItem label={'activity'} to={"/dashboard/activity"}>
+                    <i className={"fas fa-file-lines"}/>
+                    <span>Activity Logs</span>
+                </NavItem>
             </ul>
             <hr className={"border-1 w-4"}/>
             <ul className={"flex flex-col items-start justify-center w-full"}>
                 <li>
+                    <NavItem label={'documentation'} to={"/documentation"}>
                     <i className={"fas fa-book"}/>
                     <span>Documentation</span>
+                    </NavItem>
                 </li>
                 <li>
+                    <NavItem label={'settings'} to={"/dashboard/settings"}>
                     <i className={"fas fa-gear"}/>
                     <span>Settings</span>
+                    </NavItem>
                 </li>
                 <li className={"cursor-pointer"} onClick={this.handleLogout}>
+                    <Link to={"#"}>
                     <i className={"fas fa-sign-out"}/>
                     <span>Log out</span>
+                    </Link>
                 </li>
             </ul>
             <i id={"side-toggle"} onClick={(e) => {

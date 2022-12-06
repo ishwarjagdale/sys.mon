@@ -28,21 +28,16 @@ class SystemCard extends React.Component {
             this.conn = new WebSocket(`wss://${this.props.data.ip_addr}/`);
             this.conn.onopen = () => {
                 this.setState({active: true});
-                this.props.set_as(new Set([...this.props.active_systems.add(this.props.data.sys_id)]));
+                this.props.handleActive(this.props.data.sys_id);
                 this.conn.send("Connection from " + window.location.href);
             }
             this.conn.onmessage = (event) => {
-                // console.log(event.data);
                 this.setState({...JSON.parse(event.data)});
                 this.getStats();
             }
             this.conn.onclose = (event) => {
                 this.setState({active: false, stats: {}});
-                let temp = [...this.props.active_systems];
-                if(temp.includes(this.props.data.sys_id))
-                    temp.pop(this.props.data.sys_id);
-                console.log(temp);
-                this.props.set_as(new Set(temp));
+                this.props.handleActive(this.props.data.sys_id, true);
                 console.log("this.conn closed", this.props.data.ip_addr);
             }
             console.log(this.conn);
@@ -51,7 +46,6 @@ class SystemCard extends React.Component {
 
     getStats() {
         this.conn.send("cpd");
-        // this.getStats();
     }
 
     componentDidMount() {

@@ -34,9 +34,13 @@
 .short-side span {
 display: none;
 }
-#side-bar li, #side-bar > i, #side-bar div {
-    padding-left: 2rem;
-    padding-right: 2rem;
+#side-bar li > a, #side-bar > i, #side-bar div {
+    padding: 0 2rem;
+}
+#side-bar li > a {
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 #side-bar ul > li {
     display: flex;
