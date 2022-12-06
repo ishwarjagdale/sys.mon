@@ -18,30 +18,27 @@ class SystemLogs extends React.Component {
 
     render() {
 
-        return this.state.logs && this.state.logs.length ?
-            <>
-                <table className={"lg:m-4 border-2"} >
-                    <thead className={"m-2"}>
-                    <tr>
-                        <th>Activity Type</th>
-                        <th>Description</th>
-                        <th>Date Happened</th>
-                    </tr>
-                    </thead>
-                    <tbody className={"text-sm"}>
-                    {
-                        this.state.logs.map((k) =>
-                            <tr key={k.activity_id}>
-                                <td>{k.type}</td>
-                                <td>{k.description}</td>
-                                <td>{new Date(k.date_happened).toDateString()} {new Date(k.date_happened).toLocaleTimeString()}</td>
-                            </tr>)
-                    }
-                    </tbody>
-                </table>
-            </>
-            :
-            <></>
+        if(this.state.logs && this.state.logs.length)
+            return <table className={"lg:m-4 border-2"} >
+                <thead className={"m-2"}>
+                <tr>
+                    <th>Activity Type</th>
+                    <th>Description</th>
+                    <th>Date Happened</th>
+                </tr>
+                </thead>
+                <tbody className={"text-sm"}>
+                {
+                    this.state.logs.map((k) =>
+                        <tr key={k.activity_id}>
+                            <td>{k.type}</td>
+                            <td>{k.description}</td>
+                            <td>{new Date(k.date_happened).toDateString()} {new Date(k.date_happened).toLocaleTimeString()}</td>
+                        </tr>)
+                }
+                </tbody>
+            </table>
+        return <i className={"m-auto animate-spin p-8 fas fa-spinner"} />
     }
 
 }

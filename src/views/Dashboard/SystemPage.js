@@ -101,90 +101,88 @@ class SystemPage extends React.Component {
         }
 
         const Specifications = () => {
-            if(this.conn && this.state.spec) {
+            if(this.conn && this.state.spec)
                 return <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}><RenderSpecs spec={this.state.spec} /></div>
-            }
-            return <></>
+            return <i className={"m-auto p-8 animate-spin fas fa-spinner"} />
         }
 
         const Performance = () => {
-            return this.state.stats ? <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}>
-                <div className={"flex flex-col w-full mb-4"}>
-                    <div className={"my-4 pb-2 border-b flex items-center justify-between w-full"}>
-                        <span><i className={"fas fa-microchip mx-2"}/>CPU</span>
-                        <span className={"text-sm"}>{this.state.spec && this.state.spec["Processor"]["Processor Name"]}</span>
+            if(this.state.stats)
+                return <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}>
+                    <div className={"flex flex-col w-full mb-4"}>
+                        <div className={"my-4 pb-2 border-b flex items-center justify-between w-full"}>
+                            <span><i className={"fas fa-microchip mx-2"}/>CPU</span>
+                            <span className={"text-sm"}>{this.state.spec && this.state.spec["Processor"]["Processor Name"]}</span>
+                        </div>
+                        <Graph id={'cpu-chart'} stats={this.state.stats.cpu}/>
                     </div>
-                    <Graph id={'cpu-chart'} stats={this.state.stats.cpu}/>
-                </div>
-                <div className={"flex flex-col w-full mb-4"}>
-                    <div className={"my-4 pb-2 border-b flex items-center justify-between w-full"}>
-                        <span><i className={"fas fa-memory mx-2"}/>Memory</span>
+                    <div className={"flex flex-col w-full mb-4"}>
+                        <div className={"my-4 pb-2 border-b flex items-center justify-between w-full"}>
+                            <span><i className={"fas fa-memory mx-2"}/>Memory</span>
+                        </div>
+                        <Graph id={'mem-chart'} stats={this.state.stats.mem}/>
                     </div>
-                    <Graph id={'mem-chart'} stats={this.state.stats.mem}/>
                 </div>
-            </div> : <></>
+            return <i className={"m-auto p-8 animate-spin fas fa-spinner"} />
 
         }
 
-        return (
-            this.state.data ?
-                <div className={"flex flex-col h-full lg:m-2 py-6 px-4 lg:p-8 flex-1"}>
-                    <div id={"top-bar"} className={" pb-0 lg:pb-0 flex items-center flex-1 justify-between"}>
-                        <div className={"flex items-center m-2 w-full border-b"}>
-                            <span onClick={() => window.history.back()} className={"fas fa-arrow-left mr-2 py-4 cursor-pointer"}/>
-                            <span className={"font-bold text-lg text-gray-500 block"}>Dashboard</span>
-                        </div>
-                        <i className={"fas fa-bars-staggered md:hidden rounded p-2 z-50 cursor-pointer"} onClick={(e) => {
-                            e.target.classList.toggle("bg-[#161b22]");
-                            document.getElementById("side-bar").classList.toggle("hidden");
-                            document.getElementById("side-bar").classList.toggle("short-side");
-                        }}/>
+        if(this.state.data)
+            return <div className={"flex flex-col h-full lg:m-2 py-6 px-4 lg:p-8 flex-1"}>
+                <div id={"top-bar"} className={" pb-0 lg:pb-0 flex items-center flex-1 justify-between"}>
+                    <div className={"flex items-center m-2 w-full border-b"}>
+                        <span onClick={() => window.history.back()} className={"fas fa-arrow-left mr-2 py-4 cursor-pointer"}/>
+                        <span className={"font-bold text-lg text-gray-500 block"}>Dashboard</span>
                     </div>
-                    <div className={"flex flex-col lg:flex-row lg:items-center w-full"}>
-                        <div className={"flex py-8 items-center"}>
-                            <i className={`hidden lg:block fab fa-${this.state.system.os.toLowerCase()} text-9xl px-8`}/>
-                            <div className={"flex flex-col flex-1 mx-2"}>
-                                <span className={"text-2xl font-bold my-4 text-white"}>{this.state.system.name}</span>
-                                <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>IP address:</span><span>{this.state.system.ip_addr ? this.state.system.ip_addr.toString().split(":")[0] : 'null'}</span></div>
-                                <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>Operating System:</span><span>{this.state.system.os}</span></div><br/>
-                                <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>Status:</span><p onClick={this.createConnection} className={`cursor-pointer ${this.state.system.enable_mon ?
-                                    this.state.status === 'online' ? 'text-green-600' : this.state.status === 'offline' ? 'text-red-500' : 'text-gray-400' : 'text-gray-400'}`}>{this.state.system.enable_mon ? this.state.status : 'monitoring disabled'}</p></div>
-                            </div>
-                        </div>
-                        { this.state.stats && <div className={"flex pb-8 lg:pb-0 lg:flex-col items-center lg:items-start justify-evenly lg:ml-4 lg:pl-4 lg:border-l"}>
-                            <div className={"flex items-center mx-2 lg:my-2 block"}>
-                                <i className={"w-[18px] text-center fas fa-microchip mr-2"}/>
-                                <span className={"text-lg font-bold text-green-600"}>{this.state.stats.cpu}%</span>
-                            </div>
-                            <div className={"flex items-center mx-2 lg:my-2 block"}>
-                                <i className={"w-[18px] text-center fas fa-memory mr-2"}/>
-                                <span className={"text-lg font-bold text-yellow-600"}>{this.state.stats.mem}%</span>
-                            </div>
-                            <div className={"flex items-center mx-2 lg:my-2 block"}>
-                                <i className={"w-[18px] text-center fas fa-database mr-2"}/>
-                                <span className={"text-lg font-bold text-red-600"}>{this.state.stats.disk}%</span>
-                            </div>
-                        </div>}
-                    </div>
-                    <div className={"flex flex-col mx-2 lg:mx-0"}>
-                        <ul className={"flex tabs w-full justify-evenly mb-4 lg:mb-0 lg:justify-start border-b"}>
-                            {
-                                Object.keys(this.tabs).map((k) =>
-                                    <li onClick={(e) => this.handleTab(e, k)} className={this.state.activeTab === this.tabs[k][0] ? "active-tab": undefined}><i className={`fas ${this.tabs[k][1]}`}/><span className={'hidden capitalize lg:inline-block'}>{k}</span></li>)
-                            }
-                        </ul>
-
-                            {this.state.activeTab === 0 && <Specifications/>}
-                            {this.state.activeTab === 1 && <Performance/>}
-                            {this.state.activeTab === 2 && <SystemLogs id={this.state.system.sys_id}/>}
-                            {this.state.activeTab === 3 && <SystemRules id={this.state.system.sys_id}/>}
-                            {this.state.activeTab === 4 && <SystemSettings system={this.state.system}/>}
-
-                    </div>
+                    <i className={"fas fa-bars-staggered md:hidden rounded p-2 z-50 cursor-pointer"} onClick={(e) => {
+                        e.target.classList.toggle("bg-[#161b22]");
+                        document.getElementById("side-bar").classList.toggle("hidden");
+                        document.getElementById("side-bar").classList.toggle("short-side");
+                    }}/>
                 </div>
-                :
-                <></>
-        );
+                <div className={"flex flex-col lg:flex-row lg:items-center w-full"}>
+                    <div className={"flex py-8 items-center"}>
+                        <i className={`hidden lg:block fab fa-${this.state.system.os.toLowerCase()} text-9xl px-8`}/>
+                        <div className={"flex flex-col flex-1 mx-2"}>
+                            <span className={"text-2xl font-bold my-4 text-white"}>{this.state.system.name}</span>
+                            <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>IP address:</span><span>{this.state.system.ip_addr ? this.state.system.ip_addr.toString().split(":")[0] : 'null'}</span></div>
+                            <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>Operating System:</span><span>{this.state.system.os}</span></div><br/>
+                            <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>Status:</span><p onClick={this.createConnection} className={`cursor-pointer ${this.state.system.enable_mon ?
+                                this.state.status === 'online' ? 'text-green-600' : this.state.status === 'offline' ? 'text-red-500' : 'text-gray-400' : 'text-gray-400'}`}>{this.state.system.enable_mon ? this.state.status : 'monitoring disabled'}</p></div>
+                        </div>
+                    </div>
+                    { this.state.stats && <div className={"flex pb-8 lg:pb-0 lg:flex-col items-center lg:items-start justify-evenly lg:ml-4 lg:pl-4 lg:border-l"}>
+                        <div className={"flex items-center mx-2 lg:my-2 block"}>
+                            <i className={"w-[18px] text-center fas fa-microchip mr-2"}/>
+                            <span className={"text-lg font-bold text-green-600"}>{this.state.stats.cpu}%</span>
+                        </div>
+                        <div className={"flex items-center mx-2 lg:my-2 block"}>
+                            <i className={"w-[18px] text-center fas fa-memory mr-2"}/>
+                            <span className={"text-lg font-bold text-yellow-600"}>{this.state.stats.mem}%</span>
+                        </div>
+                        <div className={"flex items-center mx-2 lg:my-2 block"}>
+                            <i className={"w-[18px] text-center fas fa-database mr-2"}/>
+                            <span className={"text-lg font-bold text-red-600"}>{this.state.stats.disk}%</span>
+                        </div>
+                    </div>}
+                </div>
+                <div className={"flex flex-col mx-2 lg:mx-0"}>
+                    <ul className={"flex tabs w-full justify-evenly mb-4 lg:mb-0 lg:justify-start border-b"}>
+                        {
+                            Object.keys(this.tabs).map((k) =>
+                                <li onClick={(e) => this.handleTab(e, k)} className={this.state.activeTab === this.tabs[k][0] ? "active-tab": undefined}><i className={`fas ${this.tabs[k][1]}`}/><span className={'hidden capitalize lg:inline-block'}>{k}</span></li>)
+                        }
+                    </ul>
+
+                        {this.state.activeTab === 0 && <Specifications/>}
+                        {this.state.activeTab === 1 && <Performance/>}
+                        {this.state.activeTab === 2 && <SystemLogs id={this.state.system.sys_id}/>}
+                        {this.state.activeTab === 3 && <SystemRules id={this.state.system.sys_id}/>}
+                        {this.state.activeTab === 4 && <SystemSettings system={this.state.system}/>}
+
+                </div>
+            </div>
+        return <i className={"m-auto p-8 animate-spin fas fa-spinner"} />
     }
 }
 

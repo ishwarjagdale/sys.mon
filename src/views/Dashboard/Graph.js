@@ -12,18 +12,33 @@ class Graph extends React.Component {
         super(props);
         this.state = {};
         this.chart = null;
-        if(!arr.hasOwnProperty(this.props.id))
-            arr[this.props.id] = new Array(60).fill(0)
+        if(!arr.hasOwnProperty(this.props.id)) {
+            if(typeof this.props.stats === "number") {
+                arr[this.props.id] = {0: []}
+            } else {
+                arr[this.props.id] = {cpu: [], mem: [], disk: []}
+
+            }
+        }
     }
 
     componentDidMount() {
         if(!this.chart) {
             this.chart = Chart.getChart(document.getElementById(this.props.id).getContext('2d'));
         }
-        if(arr[this.props.id].length === 60) {
-            arr[this.props.id].shift();
+        if(typeof this.props.stats === "number") {
+            if(arr[this.props.id][0].length === 60) {
+                arr[this.props.id][0].shift();
+            }
+            arr[this.props.id][0].push(this.props.stats);
+        } else {
+            for(let i in arr[this.props.id]) {
+                if(arr[this.props.id][i].length === 60) {
+                    arr[this.props.id][i].shift();
+                }
+                arr[this.props.id][i].push(this.props.stats[i]);
+            }
         }
-        arr[this.props.id].push(this.props.stats);
         this.chart?.update()
     }
 
@@ -43,7 +58,7 @@ class Graph extends React.Component {
             },
             plugins: {
                 legend: {
-                    display: false
+                    display: typeof this.props.stats === 'object'
                 },
             },
             scales: {
@@ -60,8 +75,8 @@ class Graph extends React.Component {
                 },
                 y: {
                     display: true,
-                    max: Math.min(Math.max(...arr[this.props.id]) + 10, 100),
-                    min: Math.max(Math.min(...arr[this.props.id]) - 10, 0),
+                    max: typeof this.props.stats === 'number' ? Math.min(Math.max(...arr[this.props.id][0]) + 10, 100) : 100,
+                    min: typeof this.props.stats === 'number' ? Math.max(Math.min(...arr[this.props.id][0]) - 10, 0) : 0,
                     ticks: {
                         stepSize: 5
                     }
@@ -71,11 +86,15 @@ class Graph extends React.Component {
         const data = {
             labels,
             datasets: [
-                {
-                    data: arr[this.props.id]
-                }
+                ...Object.keys(arr[this.props.id]).map((k) => {
+                   return {
+                       label: k,
+                       data: arr[this.props.id][k]
+                   }
+               })
             ]
         }
+        console.log(this.props.id, data);
 
         return (
             <Line id={this.props.id} options={options} data={data}/>
