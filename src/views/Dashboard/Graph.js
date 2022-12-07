@@ -94,7 +94,6 @@ class Graph extends React.Component {
                })
             ]
         }
-        console.log(this.props.id, data);
 
         return (
             <Line id={this.props.id} options={options} data={data}/>

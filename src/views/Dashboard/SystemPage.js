@@ -114,7 +114,7 @@ class SystemPage extends React.Component {
                             <span><i className={"fas fa-microchip mx-2"}/>CPU</span>
                             <span className={"text-sm"}>{this.state.spec && this.state.spec["Processor"]["Processor Name"]}</span>
                         </div>
-                        <Graph id={'cpu-chart'} stats={this.state.stats.cpu}/>
+                        <Graph id={'cpu-chart'} stats={this.state.stats}/>
                     </div>
                     <div className={"flex flex-col w-full mb-4"}>
                         <div className={"my-4 pb-2 border-b flex items-center justify-between w-full"}>

@@ -1,6 +1,7 @@
 import {notify} from "../../components/notifier";
 import React from "react";
 import {Link} from "react-router-dom";
+import Graph from "./Graph";
 
 
 class SystemCard extends React.Component {
@@ -11,12 +12,7 @@ class SystemCard extends React.Component {
         }
         this.state = {
             conn: null,
-            active: false,
-            stats: {
-                cpu: undefined,
-                mem: undefined,
-                disk: undefined
-            }
+            active: false
         }
 
         this.getStats = this.getStats.bind(this);
@@ -28,8 +24,7 @@ class SystemCard extends React.Component {
             this.conn = new WebSocket(`wss://${this.props.data.ip_addr}/`);
             this.conn.onopen = () => {
                 this.setState({active: true});
-                this.props.handleActive(this.props.data.sys_id);
-                this.conn.send("Connection from " + window.location.href);
+                this.props?.handleActive(this.props.data.sys_id);
             }
             this.conn.onmessage = (event) => {
                 this.setState({...JSON.parse(event.data)});
@@ -37,7 +32,7 @@ class SystemCard extends React.Component {
             }
             this.conn.onclose = (event) => {
                 this.setState({active: false, stats: {}});
-                this.props.handleActive(this.props.data.sys_id, true);
+                this.props?.handleActive(this.props.data.sys_id, true);
                 console.log("this.conn closed", this.props.data.ip_addr);
             }
             console.log(this.conn);
@@ -52,6 +47,10 @@ class SystemCard extends React.Component {
             this.createConnection();
     }
 
+    componentWillUnmount() {
+        this.conn?.close();
+    }
+
     render() {
         if (this.props.data === undefined)
             return (
@@ -61,7 +60,7 @@ class SystemCard extends React.Component {
                     <span className={"mt-4"}>Add new system</span>
                 </div>
             )
-        return (
+        return <>
             <div className={"border-2 w-full rounded-md p-4 mb-2 flex flex-col lg:flex-row items-start lg:items-center justify-start lg:justify-between"} aria-label={this.state.active ? "Active" : "DC"}>
                 <div className={"flex flex-row items-center flex-1"}>
                     <i onClick={this.createConnection} className={`fab fa-${this.props.data.os.toString().toLowerCase()} text-${this.state.active? "green" : "gray"}-600 cursor-pointer my-6 mx-12 text-2xl text-center`}/>
@@ -80,19 +79,21 @@ class SystemCard extends React.Component {
                     this.state.active && <div className={"flex items-center mx-auto md:mx-0 my-4"}>
                         <div className={"flex items-center mx-2 lg:mx-4 block"}>
                             <i className={"w-[18px] text-center fas fa-microchip mr-2"}/>
-                            <span className={"text-lg font-bold text-green-600"}>{this.state.stats.cpu}%</span>
+                            <span className={"text-lg font-bold text-green-600"}>{this.state.stats?.cpu}%</span>
                         </div>
                         <div className={"flex items-center mx-2 lg:mx-4 block"}>
                             <i className={"w-[18px] text-center fas fa-memory mr-2"}/>
-                            <span className={"text-lg font-bold text-yellow-600"}>{this.state.stats.mem}%</span>
+                            <span className={"text-lg font-bold text-yellow-600"}>{this.state.stats?.mem}%</span>
                         </div>
                         <div className={"flex items-center mx-2 lg:mx-4 block"}>
                             <i className={"w-[18px] text-center fas fa-database mr-2"}/>
-                            <span className={"text-lg font-bold text-red-600"}>{this.state.stats.disk}%</span>
+                            <span className={"text-lg font-bold text-red-600"}>{this.state.stats?.disk}%</span>
                         </div>
                     </div>
                 }
-            </div>)
+            </div>
+            {this.props.withGraph && this.state.stats && <Graph id={this.props.data.sys_id} stats={this.state.stats}/>}
+        </>
     }
 }
 
