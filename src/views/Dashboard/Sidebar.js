@@ -24,15 +24,24 @@ class Sidebar extends React.Component {
     }
 
     changeTab(e) {
-        document.querySelector("li[class=active]").classList.remove('active');
-        e.target.parentElement.classList.add('active');
+        document.querySelector("li[class=active]")?.classList.remove('active');
+        e.target.parentElement.tagName === "A" ?
+            e.target.parentElement.parentElement.classList.add('active') :
+            e.target.parentElement.classList.add('active');
     }
 
 
     render() {
 
         const NavItem = ({label, to, children, className}) => {
-            return <li onClick={this.changeTab} aria-label={label} className={className}>
+            let name = window.location.pathname.match(/^\/dashboard\/?(?<name>\w+)\/?/)?.groups.name;
+            let isActive = "";
+            className = className ? " " + className : "";
+            if (name === label || (name === undefined && label === "dashboard")) {
+                isActive = "active"
+            }
+
+            return <li onClick={this.changeTab} aria-label={label} className={isActive + className}>
                 <Link to={to}>
                     {children}
                 </Link>
@@ -49,7 +58,7 @@ class Sidebar extends React.Component {
             </div>
             <hr className={"border-1 w-4"}/>
             <ul className={"flex flex-col w-full items-start mt-20 mb-auto m-0"}>
-                <NavItem className={"active"} label={'dashboard'} to={"/dashboard"}>
+                <NavItem label={'dashboard'} to={"/dashboard"}>
                     <i className={"fas fa-home"}/>
                     <span>Dashboard</span>
                 </NavItem>
