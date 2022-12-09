@@ -33,6 +33,7 @@ class SystemRules extends React.Component {
                 if(res.status === 200) {
                     this.setState({rules: res.data})
                     notify("Rule deleted!", 'success');
+                    this.props.conn.send("update_mon");
                 } else {
                     notify(`${res.status} Something went wrong`, 'failed');
                 }
@@ -52,6 +53,7 @@ class SystemRules extends React.Component {
                 if(res.status === 200) {
                     this.setState({resource: '0', rules: res.data})
                     notify('Rule added!', 'success');
+                    this.props.conn.send("update_mon");
                 }
                 else {
                     this.setState({resource: '0'})

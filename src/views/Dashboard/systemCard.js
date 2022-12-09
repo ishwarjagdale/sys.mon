@@ -1,7 +1,6 @@
 import {notify} from "../../components/notifier";
 import React from "react";
 import {Link} from "react-router-dom";
-import Graph from "./Graph";
 
 
 class SystemCard extends React.Component {
@@ -12,7 +11,12 @@ class SystemCard extends React.Component {
         }
         this.state = {
             conn: null,
-            active: false
+            active: false,
+            stats: {
+                cpu: 0,
+                mem: 0,
+                disk: 0
+            }
         }
 
         this.getStats = this.getStats.bind(this);
@@ -25,6 +29,7 @@ class SystemCard extends React.Component {
             this.conn.onopen = () => {
                 this.setState({active: true});
                 this.props?.handleActive(this.props.data.sys_id);
+                this.getStats();
             }
             this.conn.onmessage = (event) => {
                 this.setState({...JSON.parse(event.data)});
@@ -92,7 +97,6 @@ class SystemCard extends React.Component {
                     </div>
                 }
             </div>
-            {this.props.withGraph && this.state.stats && <Graph id={this.props.data.sys_id} stats={this.state.stats}/>}
         </>
     }
 }
