@@ -27,6 +27,10 @@ class Auth extends React.Component {
         let formData;
         switch (this.props.page) {
             case 1: {
+                if(e.target.name.value.trim() === "") {
+                    this.setLoader(false);
+                    return notify("enter valid name");
+                }
                 formData = {
                     name: e.target.name.value,
                     email: e.target.email.value,
@@ -122,7 +126,7 @@ class Auth extends React.Component {
         </div>
         const PasswordElement = ({confirm=false}) => <div className={"form-element"}>
             <label>{confirm ? "Confirm Password" : "Password"}</label>
-            <input type={"password"} required={true} name={confirm ? 'confirm_password' : 'password'} placeholder={confirm ? "Confirm Password" : "Enter password"}/>
+            <input type={"password"} minLength={6} required={true} name={confirm ? 'confirm_password' : 'password'} placeholder={confirm ? "Confirm Password" : "Enter password"}/>
         </div>
         const VerificationElement = () => <div className={"form-element"}>
             <label>Verification Code</label>
