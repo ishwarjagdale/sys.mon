@@ -28,8 +28,10 @@ class SystemSettings extends React.Component {
                 break;
             }
             case 'name': {
-                if(e.target.name.value !== this.state.system.name)
+                if(e.target.name.value !== this.state.system.name && e.target.name.value.trim() !== "")
                     payload = {name: e.target.name.value};
+                else
+                    notify("Name should be new and not a blank")
                 break;
             }
             default: {}

@@ -13,6 +13,7 @@ import Auth from "./views/Auth";
 import DashLayout from "./views/Dashboard/DashLayout";
 import SystemPage from "./views/Dashboard/SystemPage";
 import PerformancePage from "./views/Dashboard/PerformancePage";
+import Settings from "./views/Dashboard/Settings";
 
 const router = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
             }, {
                 path: "/dashboard/activity",
                 element: <PerformancePage/>,
+                errorElement: <Oops/>
+            }, {
+                path: "/dashboard/settings",
+                element: <Settings/>,
                 errorElement: <Oops/>
             }
         ]

@@ -28,23 +28,13 @@ async function Authentication(index, formData) {
     }
     console.log(API + "auth" + url, formData);
     return axios.post(API + "auth" + url, formData).catch((err) => {
-        console.log(JSON.stringify(err));
-        switch (err.response.code) {
-            case 409: notify("Email already registered!", "failed");break;
-            case 404: notify("Users doesn't exist!", "failed");break;
-            case 401: notify("Invalid credentials", "failed");break;
-            case 403: notify("Needs authentication", "failed");break;
-            default: notify(err, "failed");break;
-        }
+        notify(err.response.data.message, "failed");
     });
 }
 
 async function is_login() {
     return await axios.get(API + "auth/login").catch((err) => {
-        switch (err.response.status) {
-            case 401: notify("Need authentication", 'failed');break;
-            default: notify(err, 'failed');break;
-        }
+        notify(err.response.data.message, "failed");
     });
 }
 

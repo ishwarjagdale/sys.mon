@@ -2,7 +2,8 @@ import "./Dashboard.css";
 import React from "react";
 import {GetSystems} from "../../api/api";
 import {notify} from "../../components/notifier";
-import SystemCard from "./systemCard";
+import SystemPerformanceHistory from "./SystemPerformanceHistory";
+
 
 export default class Dashboard extends React.Component {
     constructor(props) {
@@ -39,16 +40,16 @@ export default class Dashboard extends React.Component {
 
     render() {
         return (
-            <div className={"flex-1 flex flex-col h-auto"}>
-                <div className={"flex w-full h-full"}>
-                    <div id={"content"} className={"rounded-xl flex-1 mx-2 h-full flex py-8 px-2 lg:px-8 flex-col"}>
-                        <div id={"systems"} className={"flex-1 flex flex-col mx-2 mt-8"}>
-                            <span className={"text-xl font-bold mx-2 mb-5 block"}>Your Systems</span>
-                            {
-                                this.state.systems.map((s, i) => <SystemCard key={i} data={s} withGraph={true} handleActive={this.handleActive}/>)
-                            }
-                        </div>
-                    </div>
+            <div id={"content"} className={"rounded-xl flex-1 mx-2 h-full flex py-8 px-2 lg:px-8 flex-col"}>
+                <div className={"flex py-6 font-bold text-xl lg:text-3xl text-gray-400 items-center mx-2"}>
+                    <span className={"mr-2"}>Dashboard > </span>
+                    <span className={" username"}>Performance</span>
+                </div>
+                <div id={"systems"} className={"flex-1 flex flex-col mt-4"}>
+                    <span className={"text-lg font-bold mx-2 mb-5 block"}>Your Systems</span>
+                    {
+                        this.state.systems.map((s, i) => <SystemPerformanceHistory data={s} />)
+                    }
                 </div>
             </div>
         )

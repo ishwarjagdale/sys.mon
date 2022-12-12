@@ -17,6 +17,12 @@ async function UpdateSystem(id, payload) {
     });
 }
 
+async function UpdateUser(payload) {
+    return await axios.post(API + 'api/user', {
+        payload: payload
+    });
+}
+
 async function DeleteSystem(id) {
     return await axios.delete(API + `api/system?id=${id}`);
 }
@@ -38,4 +44,4 @@ async function NewRule(payload) {
 async function DeleteRule(id, resource) {
     return await axios.delete(API + `api/system/rules?id=${id}&resource=${resource}`);
 }
-export {GetSystems, UpdateSystem, DeleteSystem, GetLogs, GetRules, NewRule, DeleteRule};
+export {GetSystems, UpdateSystem, UpdateUser, DeleteSystem, GetLogs, GetRules, NewRule, DeleteRule};

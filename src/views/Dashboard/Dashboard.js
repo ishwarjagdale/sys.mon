@@ -3,7 +3,7 @@ import React from "react";
 import Search from "./Search";
 import {GetSystems} from "../../api/api";
 import {notify} from "../../components/notifier";
-import SystemCard from "./systemCard";
+import SystemCard from "./SystemCard.js";
 
 export default class Dashboard extends React.Component {
     constructor(props) {

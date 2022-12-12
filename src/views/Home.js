@@ -7,7 +7,7 @@ function Home() {
     return (
         <>
             <div className={"w-full lg:max-w-[50%] p-4 md:p-8 lg:p-4 flex-col items-center "}>
-                <h1 className={"font-bold text-[30px] xl:text-[48px]"}>Automating system monitoring
+                <h1 className={"font-bold text-[30px] xl:text-[48px]"}>Automating System Monitoring
                 </h1>
                 <p className={"sec-text text-md text-gray-800 lg:text-lg max-w-[450px] md:font-normal pt-5 pb-5"}>
                     Monitor health & performance of all your systems
