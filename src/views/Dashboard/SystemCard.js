@@ -59,10 +59,12 @@ class SystemCard extends React.Component {
     render() {
         if (this.props.data === undefined)
             return (
-                <div
-                    className={"border-2 text-gray-800 border-dashed w-full rounded-md p-6 mb-2 flex flex-col items-center justify-center cursor-pointer"}>
-                    <i className={"fas fa-plus"}/>
-                    <span className={"mt-4"}>Add new system</span>
+                <div className={"border-2  border-dashed"}>
+                    <a href={"https://github.com/ishwarjagdale/sys.mon-scripts/archive/refs/heads/main.zip"} download={true}
+                       className={" text-gray-800 w-full rounded-md p-6 mb-2 flex flex-col items-center justify-center cursor-pointer"}>
+                        <i className={"fas fa-plus"}/>
+                        <span className={"mt-4"}>Add new system</span>
+                    </a>
                 </div>
             )
         return <>
