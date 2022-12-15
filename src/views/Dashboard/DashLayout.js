@@ -9,10 +9,15 @@ class DashLayout extends React.Component {
     constructor(props) {
         super(props);
 
-        this.status = {}
+        this.state = {
+            theme: localStorage.getItem('theme') || 'dark'
+        }
     }
 
     componentDidMount() {
+        if(this.state.theme === 'dark') document.getElementById('root').classList.add('dark');
+        else document.getElementById('root').classList.remove('dark');
+
         is_login().then((res) => {
             if(res.status === 200) {
                 localStorage.setItem('user', JSON.stringify(res.data));

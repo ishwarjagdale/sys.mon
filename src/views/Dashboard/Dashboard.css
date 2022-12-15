@@ -80,7 +80,7 @@ display: none;
     min-width: 64px;
 }
 
-canvas {
+.dark canvas {
     background-image:
             linear-gradient(to right, #21262d 1px, transparent 1px),
             linear-gradient(to bottom, #21262d 1px, transparent 1px);

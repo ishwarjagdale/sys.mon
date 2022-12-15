@@ -1,12 +1,13 @@
 import React from "react";
 import {notify} from "../../components/notifier";
 import Button from "../../components/Button";
-import {UpdateSystem, UpdateUser} from "../../api/api";
+import {UpdateUser} from "../../api/api";
 
 class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            theme: localStorage.getItem('theme') || 'dark',
             settings : {...JSON.parse(localStorage.getItem('user'))},
             user: JSON.parse(localStorage.getItem('user')),
             changes: false
@@ -14,6 +15,14 @@ class Settings extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.toggleTheme = this.toggleTheme.bind(this);
+    }
+
+    toggleTheme() {
+        let newTheme = this.state.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        document.getElementById('root').classList.replace(newTheme === 'dark' ? 'light' : 'dark', newTheme);
+        this.setState({theme: newTheme});
     }
 
     handleChange(e) {
@@ -102,6 +111,15 @@ class Settings extends React.Component {
 
                                 <input onChange={this.handleChange} type={"password"} name={'confirm_password'} placeholder={"Confirm Password"} className={"sec-text"}/>
 
+                            </div>
+                        </div>
+                        <hr className={"border-slate-400 my-4"}/>
+                        <div className={"flex flex-col text-sm lg:text-[16px] py-4 form-element cursor-pointer"} onClick={this.toggleTheme}>
+                            <span className={"sec-text mr-4"}>Theme</span>
+                            <div className={`border my-4 p-4 px-6 rounded-full flex ${this.state.theme === 'dark' ? 'night': 'morning'} justify-between`}>
+                                {this.state.theme === 'dark' ?
+                                    <div className={"fas fa-moon ml-auto drop-shadow-2xl"}/> :
+                                    <div className={"fas fa-sun text-yellow-400 drop-shadow-2xl"}/>}
                             </div>
                         </div>
                         <hr className={"border-slate-400 my-4"}/>
