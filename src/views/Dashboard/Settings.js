@@ -71,7 +71,7 @@ class Settings extends React.Component {
                 <div id={"content"} className={"rounded-xl flex-1 mx-2 h-full flex py-8 px-2 lg:px-8 flex-col"}>
                     <div className={"flex items-center mx-2"}>
                         <span className={"font-bold text-3xl text-gray-400 mr-2 py-6"}>Dashboard > </span>
-                        <span className={"font-bold text-3xl text-gray-400 py-6 username"}>Settings</span>
+                        <span className={"font-bold text-3xl text-gray-800 py-6 text-highlight"}>Settings</span>
                     </div>
                     <div className={"flex flex-col xl:max-w-[800px] w-full lg:p-4"}>
                         <div className={"flex flex-col lg:flex-row text-sm lg:text-[16px] py-4 lg:items-center justify-between form-element"}>

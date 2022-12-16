@@ -61,7 +61,7 @@ export default class Dashboard extends React.Component {
                         <div className={"mx-2 flex flex-col"}>
                             <div className={"flex flex-1"}>
                                 <span className={"font-bold text-3xl lg:text-6xl text-gray-400 mr-2 lg:mr-4"}>Welcome,</span>
-                                <span className={"font-bold text-3xl lg:text-6xl text-gray-800 username"}>{this.state.user.name.split(" ")[0]}</span>
+                                <span className={"font-bold text-3xl lg:text-6xl text-gray-800 text-highlight"}>{this.state.user.name.split(" ")[0]}</span>
                             </div>
                             <span className={"m-1 lg:m-2 text-xs w-5/6 lg:text-sm"}>
                                 {

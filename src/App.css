@@ -124,12 +124,18 @@ thead {
     opacity: 0.6;
 }
 tr {
+    border-bottom: 1px solid #c9d1d9;
+}
+.dark tr {
     border-bottom: 1px solid #21262d;
 }
 td, th {
-    color: #c9d1d9;
     text-align: center;
     padding: 1.5rem;
+}
+
+.dark td, .dark th {
+    color: #c9d1d9;
 }
 .dark #dashboard span, .dark #dashboard i, .dark #dashboard a {
     color: #c9d1d9;
@@ -140,7 +146,7 @@ td, th {
 .dark #side-bar li:hover {
     background-color: #1f1f1f;
 }
-.dark .username {
+.dark .text-highlight {
     color: aquamarine!important;
 }
 .dark #search-bar input {
@@ -175,10 +181,13 @@ td, th {
     padding: 1rem;
     cursor: pointer;
 }
-.tabs li, .tabs li > i {
+.dark .tabs li, .dark .tabs li > i {
     color: #9ca3af;
 }
-.active-tab {
+.tabs li {
+    color: #21262d;
+}
+.dark .active-tab {
     color: ghostwhite!important;
     border-bottom: 2px solid ghostwhite;
 }

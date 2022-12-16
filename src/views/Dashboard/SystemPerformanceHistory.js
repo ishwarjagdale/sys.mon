@@ -107,7 +107,7 @@ class SystemPerformanceHistory extends React.Component {
                             }
                         </div>
                     </div>
-                    <Line id={this.props.data.sys_id} className={"max-h-[400px]"} data={data} options={options} />
+                    <Line id={this.props.data.sys_id} className={"max-h-[400px] w-full"} data={data} options={options} />
                 </>
             )
         }

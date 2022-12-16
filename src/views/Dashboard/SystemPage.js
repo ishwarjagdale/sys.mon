@@ -144,7 +144,7 @@ class SystemPage extends React.Component {
                     <div className={"flex py-8 items-center"}>
                         <i className={`hidden lg:block fab fa-${this.state.system.os.toLowerCase()} text-9xl px-8`}/>
                         <div className={"flex flex-col flex-1 mx-2"}>
-                            <span className={"text-2xl font-bold my-4 text-white"}>{this.state.system.name}</span>
+                            <span className={"text-2xl font-bold my-4"}>{this.state.system.name}</span>
                             <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>IP address:</span><span>{this.state.system.ip_addr ? this.state.system.ip_addr.toString().split(":")[0] : 'null'}</span></div>
                             <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>Operating System:</span><span>{this.state.system.os}</span></div><br/>
                             <div className={"flex items-center"}><span className={"opacity-60 mr-2"}>Status:</span><p onClick={this.createConnection} className={`cursor-pointer ${this.state.system.enable_mon ?

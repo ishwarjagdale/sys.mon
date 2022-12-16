@@ -18,7 +18,8 @@ class SystemLogs extends React.Component {
 
     render() {
 
-        if(this.state.logs && this.state.logs.length)
+        if(this.state.logs)
+            if(this.state.logs.length)
             return <table className={"lg:m-4 border-2"} >
                 <thead className={"m-2"}>
                 <tr>
@@ -38,6 +39,8 @@ class SystemLogs extends React.Component {
                 }
                 </tbody>
             </table>
+        else
+                return <span className={"m-4"}>No logs</span>
         return <i className={"m-auto animate-spin p-8 fas fa-spinner"} />
     }
 
