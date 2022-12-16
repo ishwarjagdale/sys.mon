@@ -73,10 +73,12 @@ class Sidebar extends React.Component {
             </ul>
             <hr className={"border-1 w-4"}/>
             <ul className={"flex flex-col items-start justify-center w-full"}>
-                <NavItem label={'documentation'} to={"https://github.com/ishwarjagdale/sys.mon"}>
-                    <i className={"fas fa-book"}/>
-                    <span>Documentation</span>
-                </NavItem>
+                <li aria-label={'documentation'}>
+                    <a href={"https://github.com/ishwarjagdale/sys.mon"} target={"_blank"}>
+                        <i className={"fas fa-book"}/>
+                        <span>Documentation</span>
+                    </a>
+                </li>
                 <NavItem label={'settings'} to={"/dashboard/settings"}>
                     <i className={"fas fa-gear"}/>
                     <span>Settings</span>
