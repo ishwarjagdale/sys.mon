@@ -34,7 +34,7 @@ class SystemLogs extends React.Component {
                         <tr key={k.activity_id}>
                             <td>{k.type}</td>
                             <td>{k.description}</td>
-                            <td>{new Date(k.date_happened).toDateString()} {new Date(k.date_happened).toLocaleTimeString()}</td>
+                            <td>{new Date(k.date_happened).toString()}</td>
                         </tr>)
                 }
                 </tbody>

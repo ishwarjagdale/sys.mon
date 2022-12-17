@@ -26,7 +26,7 @@ class SystemPerformanceHistory extends React.Component {
     }
 
     send = (message) => {
-        if(this.conn.readyState === 1) {
+        if(this.conn?.readyState === 1) {
             this.conn.send(message);
         } else {
             setTimeout(this.send, 1000, message)
@@ -112,7 +112,7 @@ class SystemPerformanceHistory extends React.Component {
             )
         }
         return <>
-            <i className={"fas fa-spinner"} />
+            {this.conn === null ? <span className={"m-2"}>Couldn't connect...</span> : <i className={"fas fa-spinner"}/>}
         </>
     }
 

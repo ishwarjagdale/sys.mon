@@ -3,6 +3,7 @@ import React from "react";
 import {GetSystems} from "../../api/api";
 import {notify} from "../../components/notifier";
 import SystemPerformanceHistory from "./SystemPerformanceHistory";
+import Topbar from "../../components/Topbar";
 
 
 export default class Dashboard extends React.Component {
@@ -40,7 +41,9 @@ export default class Dashboard extends React.Component {
 
     render() {
         return (
-            <div id={"content"} className={"rounded-xl flex-1 mx-2 h-full flex py-8 px-2 lg:px-8 flex-col"}>
+            <div className={"flex flex-col h-full lg:m-2 py-6 px-4 lg:p-8 flex-1"}>
+                <Topbar />
+                <div id={"content"} className={"rounded-xl flex-1 h-full flex py-8 flex-col"}>
                 <div className={"flex py-6 font-bold text-xl lg:text-3xl text-gray-400 items-center mx-2"}>
                     <span className={"mr-2"}>Dashboard > </span>
                     <span className={"text-gray-800 text-highlight"}>Performance</span>
@@ -51,6 +54,7 @@ export default class Dashboard extends React.Component {
                         this.state.systems.map((s, i) => <SystemPerformanceHistory data={s} />)
                     }
                 </div>
+            </div>
             </div>
         )
     }
