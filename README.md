@@ -30,6 +30,8 @@ Set following environment variables to run
 1. Enter your **name**, a **valid email** and a **password** of length longer than 6.
 2. Then you will receive a link on entered email address, use it to **authenticate** account which is required to 		access the dashboard
 
+![Dashboard Image](dashboard.png)
+
 **2. Download the scripts**
 
 1. Click on `+ Add new System` button in the dashboard to download the scripts or clone the [`sys.mon scripts`](https://github.com/ishwarjagdale/sys.mon-scripts) repository
